@@ -10,4 +10,4 @@ Filename: ./debs/io.pangu.axe7.deb
 Size: 107276
 MD5sum: 3d86ef34bda9287e6081dda95b7593dd
 Priority: optional
-Depends: coreutils-bin, firmware (>= 7.1), firmware (<= 7.1.2)
+Depends: coreutils-bin, firmware (>= 7.1), firmware (<= 7.1.2), version (>= 0.3), version (<= 0.3)
