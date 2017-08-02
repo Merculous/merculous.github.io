@@ -6,6 +6,6 @@ Description: Use this only to update the untether using 3uTools due to untether 
 Maintainer: Pangu
 Author: Merculous
 Section: System
-File: ./debs/io.pangu.axe7_0.3_iphoneos-arm.deb
+File: ./debs/io.pangu.axe7.deb
 Size: 107276
 MD5sum: 3d86ef34bda9287e6081dda95b7593dd
