@@ -1,0 +1,11 @@
+Package: io.pangu.axe7
+Name: Pangu 7.1-7.1.2 Untether
+Version: 0.3
+Architecture: iphoneos-arm
+Description: Use this only to update the untether using 3uTools due to untether version used is 0.2 instead of the latest 0.3
+Maintainer: Pangu
+Author: Merculous
+Section: System
+File: ./debs/io.pangu.axe7_0.3_iphoneos-arm.deb
+Size: 107276
+MD5sum: 3d86ef34bda9287e6081dda95b7593dd
