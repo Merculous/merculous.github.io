@@ -2,12 +2,26 @@ Package: io.pangu.axe7
 Name: Pangu 7.1-7.1.2 Untether
 Version: 0.3
 Architecture: iphoneos-arm
-Description: Use this only to update the untether if you jailbroke using 3uTools due to untether version used is 0.2 instead of the latest 0.3
-Maintainer: Pangu
-Author: Merculous
+Description: Use This Only To Update The Untether If You Jailbroke Using 3uTools Due To Untether Version Used Is 0.2 Instead Of The Latest 0.3.
+Maintainer: Merculous
+Author: Pangu
 Section: System
 Filename: ./debs/io.pangu.axe7.deb
 Size: 107276
 MD5sum: 3d86ef34bda9287e6081dda95b7593dd
 Priority: optional
 Depends: coreutils-bin, firmware (>= 7.1), firmware (<= 7.1.2), version (>= 0.3), version (<= 0.3)
+
+Package: com.sull.cdma427untether
+Name: iOS 4.2.7 Untether
+Version: 1.0-1
+Architecture: iphoneos-arm
+Description: I Don't Think This Is Even Neccessary If You Jailbroke Via RedSnow But I'd Like To Hold On To This Untether For Fun IDK.
+Maintainer: Merculous
+Author: iH8Sn0w
+Section: System
+Filename: ./debs/com.sull.cdma427untether.deb
+Size: 5478
+MD5sum: ee710e220be31ff0d7c9d123e1307488 
+Priority: optional
+Pre-Depends: firmware (= 4.2.7), cy +model.iphone (=3.3) 
