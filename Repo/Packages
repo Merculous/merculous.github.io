@@ -24,4 +24,4 @@ Filename: ./debs/com.sull.cdma427untether.deb
 Size: 5478
 MD5sum: ee710e220be31ff0d7c9d123e1307488 
 Priority: optional
-Pre-Depends: firmware (= 4.2.7), cy +model.iphone (=3.3) 
+Depends: firmware (= 4.2.7), cy +model.iphone (=3.3) 
