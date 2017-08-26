@@ -1,0 +1,41 @@
+Package: io.pangu.axe7
+Name: Pangu 7.1-7.1.2 Untether
+Version: 0.3
+Architecture: iphoneos-arm
+Description: This is the latest untether for iOS 7.1-7.1.2. You should only have this if you jailbroke using 3uTools since the untether isn’t updated to version 0.3. All credits go to Pangu of course :D
+Maintainer: Merculous
+Author: Pangu
+Section: System
+Filename: ./debs/io.pangu.axe7.deb
+Size: 107276
+MD5sum: 3d86ef34bda9287e6081dda95b7593dd
+Priority: optional
+Depends: coreutils-bin, firmware (>= 7.1), firmware (<= 7.1.2)
+
+Package: cleanupcrap
+Name: Clean Up Crap
+Version: 2.1
+Architecture: iphoneos-arm
+Description: A very useful script to use alongside with brc0703’s amazing script called syscleanpro.
+Maintainer: Merculous
+Author: brc0703
+Section: Scripts
+Filename: ./debs/cleanupcrap.deb
+Size: 3302
+MD5sum: aeb7486c3a9992374e0cfe93d8581fd4
+Priority: optional
+
+Package: syscleanpro
+Name: syscleanpro
+Version: 3.1
+Architecture: iphoneos-arm
+Description: An amazing script to clean junk files in the system partition
+Maintainer: Merculous
+Author: brc0703
+Section: Scripts
+Filename: ./debs/syscleanpro.deb
+Size: 5646
+MD5sum:ec1029f3a3f6e8bc503dd615e7ddd429
+Priority: optional
+
+
