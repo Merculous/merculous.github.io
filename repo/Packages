@@ -28,7 +28,7 @@ SHA256: ec3d4782df5897e368049544a9f196304c3ea3f0dccd2b8828d1f5e5161caeb6
 MD5sum: 84136f79ea540c4e957243659b823ef8
 Priority: optional
 
-Package: EtasonJB SSH Fix
+Package: com.artikus.daemonfixup
 Name: EtasonJB SSH Fix
 Version: 1.0
 Architecture: iphoneos-arm

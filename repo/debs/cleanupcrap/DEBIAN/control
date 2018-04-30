@@ -1,9 +1,0 @@
-Architecture: iphoneos-arm
-Author: brc0703
-Depends:
-Description: Useful after using syscleanpro. Cleans some more things just like syscleanpro does.
-Maintainer: Merculous
-Name: cleanupcrap
-Package: com.brc0703.cleanupcrap
-Section: Scripts
-Version: 2.1
