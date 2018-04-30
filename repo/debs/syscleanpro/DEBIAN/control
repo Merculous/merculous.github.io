@@ -1,0 +1,9 @@
+Architecture: iphoneos-arm
+Author: brc0703
+Depends:
+Description: Cleans up the system partiton and probably other stuff as well. Removes unneccessary languages and moves fonts to conserve space.
+Maintainer: Merculous
+Name: syscleanpro
+Package: com.brc0703.syscleanpro
+Section: Scripts
+Version: 3.1

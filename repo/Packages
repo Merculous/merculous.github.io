@@ -1,28 +1,16 @@
-Package: io.pangu.axe7
-Name: Pangu 7.1-7.1.2 Untether
-Version: 0.3
-Architecture: iphoneos-arm
-Description: This is the latest untether for iOS 7.1-7.1.2. You should only have this if you jailbroke using 3uTools since the untether isn’t updated to version 0.3. All credits go to Pangu of course :D
-Maintainer: Merculous
-Author: Pangu
-Section: System
-Filename: ./debs/io.pangu.axe7.deb
-Size: 107276
-MD5sum: 3d86ef34bda9287e6081dda95b7593dd
-Priority: optional
-Depends: coreutils-bin, firmware (>= 7.1), firmware (<= 7.1.2)
-
 Package: cleanupcrap
-Name: Clean Up Crap
+Name: cleanupcrap
 Version: 2.1
 Architecture: iphoneos-arm
-Description: A very useful script to use alongside with brc0703’s amazing script called syscleanpro.
+Description: A very useful script to use alongside with syscleanpro.
 Maintainer: Merculous
 Author: brc0703
 Section: Scripts
 Filename: ./debs/cleanupcrap.deb
-Size: 3302
-MD5sum: aeb7486c3a9992374e0cfe93d8581fd4
+Size: 2603
+SHA1: 3e638cb03ac05fe0cf631c479c7b2180a1972371
+SHA256: 9835454be838c8361769f4d89e983de6348206754cfc811c89f299b16f5ce98b
+MD5sum: a868cf6303a59f791be6489b448994e6
 Priority: optional
 
 Package: syscleanpro
@@ -34,8 +22,23 @@ Maintainer: Merculous
 Author: brc0703
 Section: Scripts
 Filename: ./debs/syscleanpro.deb
-Size: 5646
-MD5sum:ec1029f3a3f6e8bc503dd615e7ddd429
+Size: 15174
+SHA1: 7eea03c0ee294cb9109f76e22c9d01cded0263bb
+SHA256: ec3d4782df5897e368049544a9f196304c3ea3f0dccd2b8828d1f5e5161caeb6
+MD5sum: 84136f79ea540c4e957243659b823ef8
 Priority: optional
 
-
+Package: EtasonJB SSH Fix
+Name: EtasonJB SSH Fix
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Fixes the OpenSSH bug when using the EtasonJB untether
+Maintainer: Merculous
+Author: ArtikusHG
+Section: System
+Filename: ./debs/EtasonJB-LaunchDaemon-fixup.deb 
+Size: 4168
+SHA1: 6a92c44c903d522008d82a6e03c0e03e5e2d6e32
+SHA256: c2f61cbe8b269bb4243569e8f4cb625305e58afb0a464fec33305edcc0d35dd9
+MD5sum: 75fd5f872cd6103de228af17722b050e
+Priority: optional

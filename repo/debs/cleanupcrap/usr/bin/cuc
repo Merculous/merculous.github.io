@@ -1,0 +1,83 @@
+#!/bin/bash
+#clean up crap v2.1 5/29/12 ~brc0703@insnaelyi.com
+
+pv="/private/var"
+pvml="$pv/mobile/Library"
+pvmd="$pv/mobile/Documents"
+pvmlc="$pvml/Caches"
+dmp="/tmp/cuc.log"
+bad=".kill.list"
+ID=".ID.list"
+
+echo "Updating databse.."
+updatedb
+echo -e "just another moment..\nfinding every BundeID in every Info.plist.."
+
+rm -f $ID
+
+for plist in $(locate --basename Info.plist)
+do	plutil -key CFBundleIdentifier "$plist" 2>>$dmp 1>>ID
+done
+
+launchctl list | awk '{ print $NF }' 2>>$dmp 1>>ID
+bid -a >>ID
+dpkg --get-selections | awk '{ print $NF }' >>ID
+
+sort ID | uniq >$ID && rm ID
+
+echo "searching for crap.."
+find "$pvml/Logs" -type f -name ADDataStore* 1>>$bad 2>>$dmp
+find "$pvml/Caches/com.apple.IconsCache" -type f 1>>$bad 2>>$dmp
+find "$pv/logs/CrashReporter" -type f >>$bad
+find "$pvmlc/pagead2.googlesyndication.com" -type f >>$bad
+find "$pvml/Logs/CrashReporter" -type f >>$bad
+find "$pvmlc/Three20" -type f >>$bad 2>>$dmp
+echo "cleaning cached ad files, snapshots..."
+find "$pvmlc/admob" -type f 1>>$bad 2>>$dmp
+find "$pvmlc/googleads.g.doubleclick.net" 1>>$bad 2>>$dmp
+find "$pvmd/admob" -type f >>$bad
+find "$pv/lib/apt/lists/partial" -type f 1>>$bad 2>>$dmp
+find "$pvml/WebKit/LocalStorage" -type f 1>>$bad 2>>$dmp
+echo $pv/log/syslog >>$bad
+find "$pv/tmp" -name *.tmp 1>>$bad 2>>$dmp
+find "$pv/tmp" -name *.log 1>>$bad 2>>$dmp
+find "$pv/tmp/MediaCache" -type f 1>>$bad 2>>$dmp
+echo $pv/wireless/Library/Logs/log-bb-live-stats.txt >>$bad
+find "$pvmlc" -type f -name com.apple.SpringBoard.folderSwitcherLinen* 1>>$bad 2>>$dmp
+
+for junk in $(find "$pvmlc" -mindepth 1 -maxdepth 1 -type d)
+do	BUND="$(basename "$junk" 2>>"$dmp")"
+	INSTALLED="$(grep -i "$BUND" "$ID" 2>>"$dmp")"
+	if [ "$INSTALLED" = "" ]; then
+		echo cleaning up crap for "$BUND"
+		find "$junk" -type f >>$bad
+	fi
+done
+
+echo "cleaning cookies, local storage, tmp data"
+
+for DIRNAME in $(find /var/mobile/Applications -maxdepth 3 -type d -print | egrep -i WebKit)
+do		find "$DIRNAME"/Databases -type f 1>>$bad 2>>$dmp
+		find "$DIRNAME"/LocalStorage -type f  1>>$bad 2>>$dmp
+		find "$DIRNAME"/Cookies -type f 1>>$bad 2>>$dmp
+		app=$(echo $DIRNAME | tr '/' ' ' | awk '{ print "/"$1"/", $2"/", $3"/", $4 }' | sed 's/\s//g')
+		tar=$(basename `find $app -maxdepth 2 -type d -name *.app` | sed 's/.app//g')
+		echo "cleaning up crap for $tar"
+done
+
+grep -v safari $bad >bad
+rm $bad
+
+while read list
+do	find "$list" -type f >>${bad}
+done < bad
+
+echo -e "cleaning up\n`cat $bad | wc -l` files for a $(du -hac `cat $bad` 2>>$dmp | tail -1)\nof crap"
+
+while read file
+do	rm -f "$file" 2>>$dmp
+done < ${bad}
+
+rm -f $bad bad $ID ID
+
+exit 0
