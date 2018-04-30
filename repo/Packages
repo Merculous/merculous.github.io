@@ -7,10 +7,10 @@ Maintainer: Merculous
 Author: brc0703
 Section: Scripts
 Filename: ./debs/cleanupcrap.deb
-Size: 2603
-SHA1: 3e638cb03ac05fe0cf631c479c7b2180a1972371
-SHA256: 9835454be838c8361769f4d89e983de6348206754cfc811c89f299b16f5ce98b
-MD5sum: a868cf6303a59f791be6489b448994e6
+Size: 2776
+SHA1: a95abfee1e5723cbf2ca2a701f83cce1d2d18c8b
+SHA256: c87d1e8367deb39572aa2c648ca4aa800cf166efd6f5ca82fe50cb356b7de4e0
+MD5sum: 8b59c65fac3b47c74929a1912be604c0
 Priority: optional
 
 Package: syscleanpro
@@ -22,10 +22,10 @@ Maintainer: Merculous
 Author: brc0703
 Section: Scripts
 Filename: ./debs/syscleanpro.deb
-Size: 15174
-SHA1: 7eea03c0ee294cb9109f76e22c9d01cded0263bb
-SHA256: ec3d4782df5897e368049544a9f196304c3ea3f0dccd2b8828d1f5e5161caeb6
-MD5sum: 84136f79ea540c4e957243659b823ef8
+Size: 6488
+SHA1: 686b8e159d5e2f10b297c06c7d682a906d6d6adc
+SHA256: df95471b12446d4e60e58ba8dca05ed695498a2fd26a91021e7fe0a0375a3af9
+MD5sum: 969e977cb3af536a559e404876ca2770
 Priority: optional
 
 Package: com.artikus.daemonfixup
