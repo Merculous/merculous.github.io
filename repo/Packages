@@ -1,4 +1,4 @@
-Package: cleanupcrap
+Package: com.brc0703.cleanupcrap
 Name: cleanupcrap
 Version: 2.1
 Architecture: iphoneos-arm
@@ -13,7 +13,7 @@ SHA256: c87d1e8367deb39572aa2c648ca4aa800cf166efd6f5ca82fe50cb356b7de4e0
 MD5sum: 8b59c65fac3b47c74929a1912be604c0
 Priority: optional
 
-Package: syscleanpro
+Package: com.brc0703.syscleanpro
 Name: syscleanpro
 Version: 3.1
 Architecture: iphoneos-arm
