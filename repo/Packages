@@ -9,7 +9,7 @@ Section: Scripts
 Filename: ./debs/cleanupcrap.deb
 Size: 1944
 SHA1: 7376cb957c92b5e979124bbd9b2b488cc7638981
-SHA256: c87d1e8367deb39572aa2c648ca4aa800cf166efd6f5ca82fe50cb356b7de4e0
+SHA256: 65da814989f834adf6bf08006e7c4700f153497396095c372aa0690bea49d3fe
 MD5sum: 7c95634a55f514bdcf58535f72f364dc
 Priority: optional
 
