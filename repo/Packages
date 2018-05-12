@@ -7,10 +7,10 @@ Maintainer: Merculous
 Author: brc0703
 Section: Scripts
 Filename: ./debs/cleanupcrap.deb
-Size: 2776
-SHA1: a95abfee1e5723cbf2ca2a701f83cce1d2d18c8b
+Size: 1944
+SHA1: 7376cb957c92b5e979124bbd9b2b488cc7638981
 SHA256: c87d1e8367deb39572aa2c648ca4aa800cf166efd6f5ca82fe50cb356b7de4e0
-MD5sum: 8b59c65fac3b47c74929a1912be604c0
+MD5sum: 7c95634a55f514bdcf58535f72f364dc
 Priority: optional
 
 Package: com.brc0703.syscleanpro
@@ -22,10 +22,10 @@ Maintainer: Merculous
 Author: brc0703
 Section: Scripts
 Filename: ./debs/syscleanpro.deb
-Size: 6488
-SHA1: 686b8e159d5e2f10b297c06c7d682a906d6d6adc
-SHA256: df95471b12446d4e60e58ba8dca05ed695498a2fd26a91021e7fe0a0375a3af9
-MD5sum: 969e977cb3af536a559e404876ca2770
+Size: 4944
+SHA1: 0b7461d359c5ece8a2c03fc526720c227ff2f520
+SHA256: dd30d8a151aa7f705b9516d0b613967d09c806b316878ed66963d3c1ecbf0eb5
+MD5sum: 7ea55bb2058b733877ba44e09a028a0a
 Priority: optional
 
 Package: com.artikus.daemonfixup
@@ -37,8 +37,8 @@ Maintainer: Merculous
 Author: ArtikusHG
 Section: System
 Filename: ./debs/EtasonJB-LaunchDaemon-fixup.deb 
-Size: 4168
-SHA1: 6a92c44c903d522008d82a6e03c0e03e5e2d6e32
-SHA256: c2f61cbe8b269bb4243569e8f4cb625305e58afb0a464fec33305edcc0d35dd9
-MD5sum: 75fd5f872cd6103de228af17722b050e
+Size: 2644
+SHA1: 95eb3599e533fc4daa7fa3a6aaa4917272d81895
+SHA256: 15ed518c16bae26926ff2084428de5e8ef14bc5fc8614785c9f94979cf2ae9c9
+MD5sum: 5a7f4feb52359e68b24dd98deb8a6c64
 Priority: optional
