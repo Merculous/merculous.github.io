@@ -1,0 +1,33 @@
+<html>
+<body>
+<script>
+
+function f(){
+   try{
+   alert("t");
+   postMessage("test", "http://127.0.0.1", [q])
+   alert(a.byteLength);
+   alert(q.byteLength);
+  } catch(e){
+     alert(e.message);
+   alert(a.byteLength)
+   alert(q.byteLength);
+  }
+   return 0x22345678;
+}
+
+alert(Date);
+
+var q = new ArrayBuffer(0x7fffffff);
+var o = {valueOf : f}
+var a = new Uint8Array(q);
+
+  // alert(q.byteLength);
+var t = [];
+
+a.copyWithin(0x12345678, o, 0x32345678);
+
+
+</script>
+</body>
+</html>

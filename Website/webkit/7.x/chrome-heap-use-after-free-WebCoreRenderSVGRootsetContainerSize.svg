@@ -1,0 +1,74 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+	        "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg 
+	height="500" 
+	xmlns="http://www.w3.org/2000/svg" 
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<radialGradient
+id="grad_2">
+<stop
+offset="85%">
+</stop>
+<stop
+offset="52%">
+</stop>
+<stop
+offset="65%">
+</stop>
+</radialGradient>
+</defs>
+<g
+transform="rotate(292 309 192 ) translate(274 381 ) ">
+<polyline
+transform="rotate(133 393 13 ) translate(369 206 ) ">
+dur="0.54441417359953"
+</polyline>
+<polygon
+transform="rotate(3 267 382 ) translate(56 119 ) ">
+</polygon>
+<rect
+style="stroke-width:18;stroke:rgb(193,24,37);fill:url(#grad_3);stroke-opacity:-0.037348205706732;fill-opacity:-0.143472550038;">
+</rect>
+<ellipse
+id="element_3"
+transform="rotate(346 81 46 ) translate(350 143 ) ">
+</ellipse>
+<image
+style="stroke-width:16;stroke:rgb(190,143,161);fill:rgb(95,40,6);stroke-opacity:0.6273551795759;fill-opacity:0.45865973432486;" xlink:href="warning.png">
+repeatCount="0" 
+/>
+</image>
+<ellipse
+style="stroke-width:1;stroke:rgb(65,23,234);fill:rgb(117,241,179);stroke-opacity:-0.38253977586634;fill-opacity:-0.50105521990967;"
+transform="rotate(290 291 166 ) translate(42 46 ) ">
+to="31 4 "
+</ellipse>
+<line
+style="stroke-width:20;stroke:rgb(199,48,83);fill:rgb(208,34,194);stroke-opacity:-0.060070536593008;fill-opacity:0.15858104227045;">
+</line>
+<circle
+transform="rotate(171 257 333 ) translate(79 330 ) ">
+</circle>
+<text
+transform="rotate(389 69 224 ) translate(51 365 ) " xlink:href="#path_2">
+</text>
+<text
+transform="rotate(264 61 151 ) translate(93 243 ) " xlink:href="#path_0">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porttitor mauris enim. Vivamus pretium elit sed turpis sagittis sagittis. Morbi vitae lorem enim. Quisque eget ligula nec neque mattis adipiscing.
+<animateMotion
+repeatCount="indefinite" 
+/>
+</text>
+<polygon
+transform="rotate(193 377 372 ) translate(241 240 ) ">
+<circle
+transform="rotate(157 133 331 ) translate(279 181 ) ">
+</circle>
+</polygon>
+</g>
+<set
+to="none"
+attributeName="display" 
+/>
+</svg>
