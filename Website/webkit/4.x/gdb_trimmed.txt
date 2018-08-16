@@ -1,0 +1,202 @@
+$ chromium-browser --debug --single-process trimmed.html 
+# Env:
+#     LD_LIBRARY_PATH=/usr/lib/chromium-browser:<trimmed>
+#                PATH=/usr/lib/chromium-browser:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:<trimmed>
+#            GTK_PATH=
+# CHROMIUM_USER_FLAGS=
+#      CHROMIUM_FLAGS=
+/usr/bin/gdb /usr/lib/chromium-browser/chromium-browser -x /tmp/chromiumargs.kTvhcT
+GNU gdb (GDB) 7.1-ubuntu
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /usr/lib/chromium-browser/chromium-browser...Reading symbols from /usr/lib/debug/usr/lib/chromium-browser/chromium-browser...done.
+done.
+(gdb) r
+Starting program: /usr/lib/chromium-browser/chromium-browser --single-process trimmed.html
+[Thread debugging using libthread_db enabled]
+warning: the debug information found in "/usr/lib/debug//usr/lib/libxcb.so.1.1.0" does not match "/usr/lib/libxcb.so.1" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug/usr/lib/libxcb.so.1.1.0" does not match "/usr/lib/libxcb.so.1" (CRC mismatch).
+
+[New Thread 0x7fffe890f700 (LWP 10723)]
+[New Thread 0x7fffe810e700 (LWP 10724)]
+[New Thread 0x7fffe74ad700 (LWP 10725)]
+[New Thread 0x7fffe6cac700 (LWP 10726)]
+[New Thread 0x7fffe64ab700 (LWP 10727)]
+[New Thread 0x7fffe5caa700 (LWP 10728)]
+[New Thread 0x7fffe54a9700 (LWP 10729)]
+[New Thread 0x7fffe4ca8700 (LWP 10730)]
+[New Thread 0x7ffff4e38700 (LWP 10731)]
+[New Thread 0x7fffe44a7700 (LWP 10732)]
+[New Thread 0x7fffe3a7f700 (LWP 10733)]
+[Thread 0x7fffe3a7f700 (LWP 10733) exited]
+[New Thread 0x7fffe3a7f700 (LWP 10734)]
+[New Thread 0x7fffe0642700 (LWP 10735)]
+[10715:10730:57493950716:ERROR:chrome/browser/net/chrome_url_request_context.cc(105)] Cannot use V8 Proxy resolver in single process mode.
+[New Thread 0x7fffdf749700 (LWP 10736)]
+[New Thread 0x7fffba234700 (LWP 10737)]
+[New Thread 0x7fffe1064700 (LWP 10749)]
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x7fffe3a7f700 (LWP 10734)]
+WebCore::CounterNode::removeChild (this=0x0, oldChild=0x7ffff909d940, 
+    identifier=...) at third_party/WebKit/WebCore/rendering/CounterNode.cpp:227
+227	third_party/WebKit/WebCore/rendering/CounterNode.cpp: No such file or directory.
+	in third_party/WebKit/WebCore/rendering/CounterNode.cpp
+(gdb) disassemble
+Dump of assembler code for function _ZN7WebCore11CounterNode11removeChildEPS0_RKN3WTF12AtomicStringE:
+   0x00007ffff6a708a0 <+0>:	mov    0x20(%rsi),%rcx
+   0x00007ffff6a708a4 <+4>:	mov    0x28(%rsi),%rax
+   0x00007ffff6a708a8 <+8>:	movq   $0x0,0x20(%rsi)
+   0x00007ffff6a708b0 <+16>:	movq   $0x0,0x28(%rsi)
+   0x00007ffff6a708b8 <+24>:	movq   $0x0,0x18(%rsi)
+   0x00007ffff6a708c0 <+32>:	test   %rcx,%rcx
+   0x00007ffff6a708c3 <+35>:	je     0x7ffff6a708e0 <_ZN7WebCore11CounterNode11removeChildEPS0_RKN3WTF12AtomicStringE+64>
+   0x00007ffff6a708c5 <+37>:	test   %rax,%rax
+   0x00007ffff6a708c8 <+40>:	mov    %rax,0x28(%rcx)
+   0x00007ffff6a708cc <+44>:	je     0x7ffff6a708f0 <_ZN7WebCore11CounterNode11removeChildEPS0_RKN3WTF12AtomicStringE+80>
+   0x00007ffff6a708ce <+46>:	mov    %rcx,0x20(%rax)
+   0x00007ffff6a708d2 <+50>:	mov    %rdx,%rsi
+   0x00007ffff6a708d5 <+53>:	mov    %rax,%rdi
+   0x00007ffff6a708d8 <+56>:	jmpq   0x7ffff6a70820 <_ZN7WebCore11CounterNode7recountERKN3WTF12AtomicStringE>
+   0x00007ffff6a708dd <+61>:	nopl   (%rax)
+   0x00007ffff6a708e0 <+64>:	test   %rax,%rax
+=> 0x00007ffff6a708e3 <+67>:	mov    %rax,0x30(%rdi)
+   0x00007ffff6a708e7 <+71>:	jne    0x7ffff6a708ce <_ZN7WebCore11CounterNode1---Type <return> to continue, or q <return> to quit---
+1removeChildEPS0_RKN3WTF12AtomicStringE+46>
+   0x00007ffff6a708e9 <+73>:	nopl   0x0(%rax)
+   0x00007ffff6a708f0 <+80>:	mov    %rcx,0x38(%rdi)
+   0x00007ffff6a708f4 <+84>:	retq   
+End of assembler dump.
+(gdb) i r rdi
+rdi            0x0	0
+(gdb) i r
+rax            0x0	0
+rbx            0x7ffff909d940	140737371560256
+rcx            0x0	0
+rdx            0x7fffe3a7e220	140737012818464
+rsi            0x7ffff909d940	140737371560256
+rdi            0x0	0
+rbp            0x0	0x0
+rsp            0x7fffe3a7e1b8	0x7fffe3a7e1b8
+r8             0x3f	63
+r9             0x3f	63
+r10            0x7ffff8b12c60	140737365748832
+r11            0x7ffff874d0e0	140737361793248
+r12            0x7fffe3a7e220	140737012818464
+r13            0x7ffff91fac80	140737372990592
+r14            0x7ffff9217680	140737373107840
+r15            0x7ffff9205000	140737373032448
+rip            0x7ffff6a708e3	0x7ffff6a708e3 <WebCore::CounterNode::removeChild(WebCore::CounterNode*, WTF::AtomicString const&)+67>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x33	51
+ss             0x2b	43
+ds             0x0	0
+es             0x0	0
+---Type <return> to continue, or q <return> to quit---
+fs             0x0	0
+gs             0x0	0
+(gdb) bt
+#0  WebCore::CounterNode::removeChild (this=0x0, oldChild=0x7ffff909d940, 
+    identifier=...) at third_party/WebKit/WebCore/rendering/CounterNode.cpp:227
+#1  0x00007ffff6a4885b in destroyCounterNodeWithoutMapRemoval (identifier=..., 
+    node=0x7ffff91fac80)
+    at third_party/WebKit/WebCore/rendering/RenderCounter.cpp:356
+#2  0x00007ffff6a4a268 in WebCore::RenderCounter::destroyCounterNodes (
+    renderer=0x7ffff8f8eb78)
+    at third_party/WebKit/WebCore/rendering/RenderCounter.cpp:384
+#3  0x00007ffff694d040 in WebCore::RenderObject::destroy (this=0x7ffff8f8eb78)
+    at third_party/WebKit/WebCore/rendering/RenderObject.cpp:2166
+#4  0x00007ffff691dba4 in WebCore::RenderInline::destroy (this=0x7ffff8f8e108)
+    at third_party/WebKit/WebCore/rendering/RenderInline.cpp:65
+#5  0x00007ffff6729f7a in WebCore::Node::detach (this=0x7ffff9096d00)
+    at third_party/WebKit/WebCore/dom/Node.cpp:1214
+#6  0x00007ffff671c284 in WebCore::Element::detach (this=0x7ffff9096d00)
+    at third_party/WebKit/WebCore/dom/Element.cpp:877
+#7  0x00007ffff66edac4 in WebCore::ContainerNode::detach (this=0x7ffff9096500)
+    at third_party/WebKit/WebCore/dom/ContainerNode.cpp:720
+#8  0x00007ffff671c284 in WebCore::Element::detach (this=0x7ffff9096500)
+    at third_party/WebKit/WebCore/dom/Element.cpp:877
+#9  0x00007ffff66edac4 in WebCore::ContainerNode::detach (this=0x7ffff9030800)
+    at third_party/WebKit/WebCore/dom/ContainerNode.cpp:720
+#10 0x00007ffff670432b in WebCore::Document::detach (this=0x7ffff9030800)
+---Type <return> to continue, or q <return> to quit---
+    at third_party/WebKit/WebCore/dom/Document.cpp:1750
+#11 0x00007ffff68914e4 in WebCore::Frame::setView (this=0x7ffff8ffd000, view=DWARF-2 expression error: DW_OP_reg operations must be used either alone or in conjuction with DW_OP_piece.
+)
+    at third_party/WebKit/WebCore/page/Frame.cpp:255
+#12 0x00007ffff6334873 in WebKit::WebFrameImpl::createFrameView (
+    this=0x7ffff8fcc380)
+    at third_party/WebKit/WebKit/chromium/src/WebFrameImpl.cpp:1925
+#13 0x00007ffff683974b in WebCore::FrameLoader::transitionToCommitted (
+    this=0x7ffff8ffd050, cachedPage=DWARF-2 expression error: DW_OP_reg operations must be used either alone or in conjuction with DW_OP_piece.
+)
+    at third_party/WebKit/WebCore/loader/FrameLoader.cpp:1982
+#14 0x00007ffff683bb59 in WebCore::FrameLoader::commitProvisionalLoad (
+    this=0x7ffff8ffd050)
+    at third_party/WebKit/WebCore/loader/FrameLoader.cpp:1844
+#15 0x00007ffff6827ec2 in WebCore::DocumentLoader::commitLoad (
+    this=0x7ffff902d000, 
+    data=0x7fffdef47000 "<!DOCTYPE html>\n<html><head><script type=\"text/javascript\">\nvar nodes = Array();\nfunction boom() {\nnodes[0] = document.createElement('inlineinput');\ndocument.documentElement.appendChild(nodes[0]);\nnod"..., 
+    length=4839) at third_party/WebKit/WebCore/loader/DocumentLoader.cpp:287
+#16 0x00007ffff6855283 in WebCore::ResourceLoader::didReceiveData (
+    this=0x7ffff9041000, 
+    data=0x7fffdef47000 "<!DOCTYPE html>\n<html><head><script type=\"text/javascript\">\nvar nodes = Array();\nfunction boom() {\nnodes[0] = document.createElement('inlineinput');\ndocument.documentElement.appendChild(nodes[0]);\nnod"..., 
+---Type <return> to continue, or q <return> to quit---
+    length=4839, lengthReceived=4839, allAtOnce=false)
+    at third_party/WebKit/WebCore/loader/ResourceLoader.cpp:262
+#17 0x00007ffff6846555 in WebCore::MainResourceLoader::didReceiveData (
+    this=0x7ffff9041000, 
+    data=0x7fffdef47000 "<!DOCTYPE html>\n<html><head><script type=\"text/javascript\">\nvar nodes = Array();\nfunction boom() {\nnodes[0] = document.createElement('inlineinput');\ndocument.documentElement.appendChild(nodes[0]);\nnod"..., 
+    length=4839, lengthReceived=4839, allAtOnce=<value optimized out>)
+    at third_party/WebKit/WebCore/loader/MainResourceLoader.cpp:435
+#18 0x00007ffff6854bcd in WebCore::ResourceLoader::didReceiveData (
+    this=0x7ffff9041000, 
+    data=0x7fffdef47000 "<!DOCTYPE html>\n<html><head><script type=\"text/javascript\">\nvar nodes = Array();\nfunction boom() {\nnodes[0] = document.createElement('inlineinput');\ndocument.documentElement.appendChild(nodes[0]);\nnod"..., 
+    length=4839, lengthReceived=0)
+    at third_party/WebKit/WebCore/loader/ResourceLoader.cpp:415
+#19 0x00007ffff6bcd8a0 in ResourceDispatcher::OnReceivedData (
+    this=<value optimized out>, message=<value optimized out>, request_id=1, 
+    shm_handle=..., data_len=4839) at chrome/common/resource_dispatcher.cc:407
+#20 0x00007ffff6bccabd in IPC::MessageWithTuple<Tuple3<int, base::FileDescriptor, int> >::Dispatch<ResourceDispatcher, int, base::FileDescriptor, int> (
+    msg=0x7ffffc101d40, obj=0x7ffff8fa5340, 
+    func=0x7ffff6bcd7e0 <ResourceDispatcher::OnReceivedData(IPC::Message const&,---Type <return> to continue, or q <return> to quit---
+ int, base::FileDescriptor, int)>) at ./ipc/ipc_message_utils.h:961
+#21 0x00007ffff6bcebbb in ResourceDispatcher::DispatchMessage (
+    this=0x7ffff8fa5340, message=...)
+    at chrome/common/resource_dispatcher.cc:552
+#22 0x00007ffff6bceffb in ResourceDispatcher::OnMessageReceived (
+    this=0x7ffff8fa5340, message=...)
+    at chrome/common/resource_dispatcher.cc:323
+#23 0x00007ffff6be0e00 in ChildThread::OnMessageReceived (this=0x7ffff8fa6008, 
+    msg=...) at chrome/common/child_thread.cc:139
+#24 0x00007ffff5aec451 in MessageLoop::RunTask (this=0x7fffe3a7ebe0, 
+    task=0x7ffffc101d20) at base/message_loop.cc:410
+#25 0x00007ffff5aedacb in MessageLoop::DeferOrRunPendingTask (
+    this=0x7fffe3a7ebe0, pending_task=<value optimized out>)
+    at base/message_loop.cc:419
+#26 0x00007ffff5aedd8d in MessageLoop::DoWork (this=0x7fffe3a7ebe0)
+    at base/message_loop.cc:526
+#27 0x00007ffff5aefb69 in base::MessagePumpDefault::Run (this=0x7ffff8f97c00, 
+    delegate=0x7fffe3a7ebe0) at base/message_pump_default.cc:23
+#28 0x00007ffff5aed09c in MessageLoop::RunHandler (this=0x0)
+    at base/message_loop.cc:230
+#29 MessageLoop::Run (this=0x0) at base/message_loop.cc:208
+#30 0x00007ffff5b08855 in base::Thread::ThreadMain (this=0x7ffff8f6b230)
+    at base/thread.cc:164
+---Type <return> to continue, or q <return> to quit---
+#31 0x00007ffff5af791a in ThreadFunc (closure=0x0)
+    at base/platform_thread_posix.cc:35
+#32 0x00007ffff13379ca in start_thread (arg=<value optimized out>)
+    at pthread_create.c:300
+#33 0x00007fffef00370d in clone ()
+    at ../sysdeps/unix/sysv/linux/x86_64/clone.S:112
+#34 0x0000000000000000 in ?? ()
+(gdb) 
+

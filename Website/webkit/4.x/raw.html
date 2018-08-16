@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html><head><script type="text/javascript">
+function move_is_safe(node, new_parent) {
+  var check = new_parent.parentNode;
+  while(check != null) {
+    if(check == node) return false;
+    check = check.parentNode;
+  }
+  return true
+}
+var buffers = Array();
+buffers[0] = '\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA';
+buffers[1] = '\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA';
+buffers[2] = '\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA\uAAAA';
+var comments = Array();
+for(i=0; i<1000; i++) { comments[i] = document.createElement('comment'); comments[i].data = '\uBBBB'; };
+var current_comment = 0;
+var nodes = Array();
+function boom() {
+var r = document.documentElement;
+while(r.firstChild) r.removeChild(r.firstChild);
+nodes[0] = document.createElement('inlineinput');
+document.documentElement.appendChild(nodes[0]);
+nodes[1] = document.createElement('wbr');
+document.documentElement.appendChild(nodes[1]);
+nodes[2] = document.createElement('layer');
+document.documentElement.appendChild(nodes[2]);
+nodes[3] = document.createElement('button');
+document.documentElement.appendChild(nodes[3]);
+nodes[4] = document.createElement('area');
+document.documentElement.appendChild(nodes[4]);
+nodes[5] = document.createElement('spacer');
+nodes[5].style.counterIncrement = '‹‹‹‹‹‹‹‹‹‹‹‹‹';
+document.documentElement.appendChild(nodes[5]);
+nodes[6] = document.createElement('table');
+document.documentElement.appendChild(nodes[6]);
+nodes[7] = document.createElement('link');
+document.documentElement.appendChild(nodes[7]);
+nodes[8] = document.createElement('audio');
+document.documentElement.appendChild(nodes[8]);
+nodes[9] = document.createElement('video');
+document.documentElement.appendChild(nodes[9]);
+nodes[10] = document.createElement('audio');
+document.documentElement.appendChild(nodes[10]);
+nodes[11] = document.createElement('spot');
+document.documentElement.appendChild(nodes[11]);
+nodes[12] = document.createElement('acronym');
+document.documentElement.appendChild(nodes[12]);
+nodes[13] = document.createElement('multicol');
+document.documentElement.appendChild(nodes[13]);
+nodes[14] = document.createElement('blockquote');
+document.documentElement.appendChild(nodes[14]);
+nodes[15] = document.createElement('base');
+document.documentElement.appendChild(nodes[15]);
+nodes[16] = document.createElement('menu');
+document.documentElement.appendChild(nodes[16]);
+nodes[17] = document.createElement('head');
+document.documentElement.appendChild(nodes[17]);
+nodes[18] = document.createElement('audio');
+document.documentElement.appendChild(nodes[18]);
+nodes[19] = document.createElement('sup');
+document.documentElement.appendChild(nodes[19]);
+nodes[20] = document.createElement('b');
+document.documentElement.appendChild(nodes[20]);
+nodes[21] = document.createElement('html');
+document.documentElement.appendChild(nodes[21]);
+nodes[22] = document.createElement('head');
+document.documentElement.appendChild(nodes[22]);
+nodes[23] = document.createElement('embed');
+document.documentElement.appendChild(nodes[23]);
+nodes[24] = document.createElement('ilayer');
+document.documentElement.appendChild(nodes[24]);
+nodes[25] = document.createElement('video');
+document.documentElement.appendChild(nodes[25]);
+nodes[26] = document.createElement('h1');
+document.documentElement.appendChild(nodes[26]);
+nodes[27] = document.createElement('menu');
+document.documentElement.appendChild(nodes[27]);
+nodes[28] = document.createElement('control');
+document.documentElement.appendChild(nodes[28]);
+nodes[29] = document.createElement('sup');
+document.documentElement.appendChild(nodes[29]);
+nodes[30] = document.createElement('center');
+document.documentElement.appendChild(nodes[30]);
+nodes[31] = document.createElement('control');
+document.documentElement.appendChild(nodes[31]);
+nodes[32] = document.createElement('b');
+document.documentElement.appendChild(nodes[32]);
+nodes[33] = document.createElement('audio');
+document.documentElement.appendChild(nodes[33]);
+nodes[34] = document.createElement('rtc');
+document.documentElement.appendChild(nodes[34]);
+nodes[35] = document.createElement('xmp');
+document.documentElement.appendChild(nodes[35]);
+nodes[36] = document.createElement('html');
+document.documentElement.appendChild(nodes[36]);
+nodes[37] = document.createElement('th');
+document.documentElement.appendChild(nodes[37]);
+nodes[38] = document.createElement('rtc');
+document.documentElement.appendChild(nodes[38]);
+nodes[39] = document.createElement('bq');
+document.documentElement.appendChild(nodes[39]);
+nodes[40] = document.createElement('fig');
+document.documentElement.appendChild(nodes[40]);
+nodes[41] = document.createElement('iframe');
+document.documentElement.appendChild(nodes[41]);
+nodes[42] = document.createElement('hr');
+document.documentElement.appendChild(nodes[42]);
+nodes[43] = document.createElement('multicol');
+document.documentElement.appendChild(nodes[43]);
+nodes[44] = document.createElement('multicol');
+document.documentElement.appendChild(nodes[44]);
+nodes[45] = document.createElement('p');
+document.documentElement.appendChild(nodes[45]);
+nodes[46] = document.createElement('select');
+document.documentElement.appendChild(nodes[46]);
+nodes[47] = document.createElement('input');
+document.documentElement.appendChild(nodes[47]);
+nodes[48] = document.createElement('fieldset');
+document.documentElement.appendChild(nodes[48]);
+nodes[49] = document.createElement('h1');
+document.documentElement.appendChild(nodes[49]);
+nodes[50] = document.createElement('code');
+document.documentElement.appendChild(nodes[50]);
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[26], nodes[0])) { nodes[26].parentNode.removeChild(nodes[26]); nodes[0].appendChild(nodes[26]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[2], nodes[43])) { nodes[2].parentNode.removeChild(nodes[2]); nodes[43].appendChild(nodes[2]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[46], nodes[16])) { nodes[46].parentNode.removeChild(nodes[46]); nodes[16].appendChild(nodes[46]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[2], nodes[7])) { nodes[2].parentNode.removeChild(nodes[2]); nodes[7].appendChild(nodes[2]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[6], nodes[26])) { nodes[6].parentNode.removeChild(nodes[6]); nodes[26].appendChild(nodes[6]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[37], nodes[15])) { nodes[37].parentNode.removeChild(nodes[37]); nodes[15].appendChild(nodes[37]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[42], nodes[35])) { nodes[42].parentNode.removeChild(nodes[42]); nodes[35].appendChild(nodes[42]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[30], nodes[37])) { nodes[30].parentNode.removeChild(nodes[30]); nodes[37].appendChild(nodes[30]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[11], nodes[45])) { nodes[11].parentNode.removeChild(nodes[11]); nodes[45].appendChild(nodes[11]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[11], nodes[16])) { nodes[11].parentNode.removeChild(nodes[11]); nodes[16].appendChild(nodes[11]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[32], nodes[21])) { nodes[32].parentNode.removeChild(nodes[32]); nodes[21].appendChild(nodes[32]); }
+window.setTimeout('comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[28], nodes[38])) { nodes[28].parentNode.removeChild(nodes[28]); nodes[38].appendChild(nodes[28]); }', 39);
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[30], nodes[24])) { nodes[30].parentNode.removeChild(nodes[30]); nodes[24].appendChild(nodes[30]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[9], nodes[24])) { nodes[9].parentNode.removeChild(nodes[9]); nodes[24].appendChild(nodes[9]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[43], nodes[42])) { nodes[43].parentNode.removeChild(nodes[43]); nodes[42].appendChild(nodes[43]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[21], nodes[28])) { nodes[21].parentNode.removeChild(nodes[21]); nodes[28].appendChild(nodes[21]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[37], nodes[2])) { nodes[37].parentNode.removeChild(nodes[37]); nodes[2].appendChild(nodes[37]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[15], nodes[31])) { nodes[15].parentNode.removeChild(nodes[15]); nodes[31].appendChild(nodes[15]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[45], nodes[17])) { nodes[45].parentNode.removeChild(nodes[45]); nodes[17].appendChild(nodes[45]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[22], nodes[47])) { nodes[22].parentNode.removeChild(nodes[22]); nodes[47].appendChild(nodes[22]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[21], nodes[44])) { nodes[21].parentNode.removeChild(nodes[21]); nodes[44].appendChild(nodes[21]); }
+window.setTimeout('comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[17], nodes[6])) { nodes[17].parentNode.removeChild(nodes[17]); nodes[6].appendChild(nodes[17]); }', 88);
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[46], nodes[11])) { nodes[46].parentNode.removeChild(nodes[46]); nodes[11].appendChild(nodes[46]); }
+window.setTimeout('comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[0], nodes[33])) { nodes[0].parentNode.removeChild(nodes[0]); nodes[33].appendChild(nodes[0]); }', 71);
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[11], nodes[43])) { nodes[11].parentNode.removeChild(nodes[11]); nodes[43].appendChild(nodes[11]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[28], nodes[31])) { nodes[28].parentNode.removeChild(nodes[28]); nodes[31].appendChild(nodes[28]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[38], nodes[7])) { nodes[38].parentNode.removeChild(nodes[38]); nodes[7].appendChild(nodes[38]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[34], nodes[33])) { nodes[34].parentNode.removeChild(nodes[34]); nodes[33].appendChild(nodes[34]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[37], nodes[41])) { nodes[37].parentNode.removeChild(nodes[37]); nodes[41].appendChild(nodes[37]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[49], nodes[8])) { nodes[49].parentNode.removeChild(nodes[49]); nodes[8].appendChild(nodes[49]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[1], nodes[28])) { nodes[1].parentNode.removeChild(nodes[1]); nodes[28].appendChild(nodes[1]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[37], nodes[38])) { nodes[37].parentNode.removeChild(nodes[37]); nodes[38].appendChild(nodes[37]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[30], nodes[27])) { nodes[30].parentNode.removeChild(nodes[30]); nodes[27].appendChild(nodes[30]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[8], nodes[2])) { nodes[8].parentNode.removeChild(nodes[8]); nodes[2].appendChild(nodes[8]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[35], nodes[10])) { nodes[35].parentNode.removeChild(nodes[35]); nodes[10].appendChild(nodes[35]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[43], nodes[50])) { nodes[43].parentNode.removeChild(nodes[43]); nodes[50].appendChild(nodes[43]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[40], nodes[34])) { nodes[40].parentNode.removeChild(nodes[40]); nodes[34].appendChild(nodes[40]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[16], nodes[43])) { nodes[16].parentNode.removeChild(nodes[16]); nodes[43].appendChild(nodes[16]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[45], nodes[31])) { nodes[45].parentNode.removeChild(nodes[45]); nodes[31].appendChild(nodes[45]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[18], nodes[16])) { nodes[18].parentNode.removeChild(nodes[18]); nodes[16].appendChild(nodes[18]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[17], nodes[45])) { nodes[17].parentNode.removeChild(nodes[17]); nodes[45].appendChild(nodes[17]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[21], nodes[28])) { nodes[21].parentNode.removeChild(nodes[21]); nodes[28].appendChild(nodes[21]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[12], nodes[19])) { nodes[12].parentNode.removeChild(nodes[12]); nodes[19].appendChild(nodes[12]); }
+window.setTimeout('comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[43], nodes[20])) { nodes[43].parentNode.removeChild(nodes[43]); nodes[20].appendChild(nodes[43]); }', 56);
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[45], nodes[18])) { nodes[45].parentNode.removeChild(nodes[45]); nodes[18].appendChild(nodes[45]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[40], nodes[37])) { nodes[40].parentNode.removeChild(nodes[40]); nodes[37].appendChild(nodes[40]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[37], nodes[36])) { nodes[37].parentNode.removeChild(nodes[37]); nodes[36].appendChild(nodes[37]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[38], nodes[35])) { nodes[38].parentNode.removeChild(nodes[38]); nodes[35].appendChild(nodes[38]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[14], nodes[18])) { nodes[14].parentNode.removeChild(nodes[14]); nodes[18].appendChild(nodes[14]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[37], nodes[6])) { nodes[37].parentNode.removeChild(nodes[37]); nodes[6].appendChild(nodes[37]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[4], nodes[6])) { nodes[4].parentNode.removeChild(nodes[4]); nodes[6].appendChild(nodes[4]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[39], nodes[29])) { nodes[39].parentNode.removeChild(nodes[39]); nodes[29].appendChild(nodes[39]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[48], nodes[46])) { nodes[48].parentNode.removeChild(nodes[48]); nodes[46].appendChild(nodes[48]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[32], nodes[49])) { nodes[32].parentNode.removeChild(nodes[32]); nodes[49].appendChild(nodes[32]); }
+window.setTimeout('comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[34], nodes[43])) { nodes[34].parentNode.removeChild(nodes[34]); nodes[43].appendChild(nodes[34]); }', 59);
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[13], nodes[27])) { nodes[13].parentNode.removeChild(nodes[13]); nodes[27].appendChild(nodes[13]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[3], nodes[7])) { nodes[3].parentNode.removeChild(nodes[3]); nodes[7].appendChild(nodes[3]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[9], nodes[22])) { nodes[9].parentNode.removeChild(nodes[9]); nodes[22].appendChild(nodes[9]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[45], nodes[38])) { nodes[45].parentNode.removeChild(nodes[45]); nodes[38].appendChild(nodes[45]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[39], nodes[11])) { nodes[39].parentNode.removeChild(nodes[39]); nodes[11].appendChild(nodes[39]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[29], nodes[31])) { nodes[29].parentNode.removeChild(nodes[29]); nodes[31].appendChild(nodes[29]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[36], nodes[8])) { nodes[36].parentNode.removeChild(nodes[36]); nodes[8].appendChild(nodes[36]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[3], nodes[30])) { nodes[3].parentNode.removeChild(nodes[3]); nodes[30].appendChild(nodes[3]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[6], nodes[21])) { nodes[6].parentNode.removeChild(nodes[6]); nodes[21].appendChild(nodes[6]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[28], nodes[13])) { nodes[28].parentNode.removeChild(nodes[28]); nodes[13].appendChild(nodes[28]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[36], nodes[7])) { nodes[36].parentNode.removeChild(nodes[36]); nodes[7].appendChild(nodes[36]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[19], nodes[31])) { nodes[19].parentNode.removeChild(nodes[19]); nodes[31].appendChild(nodes[19]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[42], nodes[22])) { nodes[42].parentNode.removeChild(nodes[42]); nodes[22].appendChild(nodes[42]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[27], nodes[7])) { nodes[27].parentNode.removeChild(nodes[27]); nodes[7].appendChild(nodes[27]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[40], nodes[5])) { nodes[40].parentNode.removeChild(nodes[40]); nodes[5].appendChild(nodes[40]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[35], nodes[21])) { nodes[35].parentNode.removeChild(nodes[35]); nodes[21].appendChild(nodes[35]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[16], nodes[4])) { nodes[16].parentNode.removeChild(nodes[16]); nodes[4].appendChild(nodes[16]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[6], nodes[28])) { nodes[6].parentNode.removeChild(nodes[6]); nodes[28].appendChild(nodes[6]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[32], nodes[18])) { nodes[32].parentNode.removeChild(nodes[32]); nodes[18].appendChild(nodes[32]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[0], nodes[4])) { nodes[0].parentNode.removeChild(nodes[0]); nodes[4].appendChild(nodes[0]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[49], nodes[8])) { nodes[49].parentNode.removeChild(nodes[49]); nodes[8].appendChild(nodes[49]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[46], nodes[38])) { nodes[46].parentNode.removeChild(nodes[46]); nodes[38].appendChild(nodes[46]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[30], nodes[33])) { nodes[30].parentNode.removeChild(nodes[30]); nodes[33].appendChild(nodes[30]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[49], nodes[47])) { nodes[49].parentNode.removeChild(nodes[49]); nodes[47].appendChild(nodes[49]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[41], nodes[35])) { nodes[41].parentNode.removeChild(nodes[41]); nodes[35].appendChild(nodes[41]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[12], nodes[41])) { nodes[12].parentNode.removeChild(nodes[12]); nodes[41].appendChild(nodes[12]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[33], nodes[42])) { nodes[33].parentNode.removeChild(nodes[33]); nodes[42].appendChild(nodes[33]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[20], nodes[33])) { nodes[20].parentNode.removeChild(nodes[20]); nodes[33].appendChild(nodes[20]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[41], nodes[47])) { nodes[41].parentNode.removeChild(nodes[41]); nodes[47].appendChild(nodes[41]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[20], nodes[39])) { nodes[20].parentNode.removeChild(nodes[20]); nodes[39].appendChild(nodes[20]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[0], nodes[14])) { nodes[0].parentNode.removeChild(nodes[0]); nodes[14].appendChild(nodes[0]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[1], nodes[3])) { nodes[1].parentNode.removeChild(nodes[1]); nodes[3].appendChild(nodes[1]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[18], nodes[11])) { nodes[18].parentNode.removeChild(nodes[18]); nodes[11].appendChild(nodes[18]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[27], nodes[7])) { nodes[27].parentNode.removeChild(nodes[27]); nodes[7].appendChild(nodes[27]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[40], nodes[7])) { nodes[40].parentNode.removeChild(nodes[40]); nodes[7].appendChild(nodes[40]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[28], nodes[0])) { nodes[28].parentNode.removeChild(nodes[28]); nodes[0].appendChild(nodes[28]); }
+window.setTimeout('comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[34], nodes[8])) { nodes[34].parentNode.removeChild(nodes[34]); nodes[8].appendChild(nodes[34]); }', 75);
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[25], nodes[14])) { nodes[25].parentNode.removeChild(nodes[25]); nodes[14].appendChild(nodes[25]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[0], nodes[17])) { nodes[0].parentNode.removeChild(nodes[0]); nodes[17].appendChild(nodes[0]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[24], nodes[31])) { nodes[24].parentNode.removeChild(nodes[24]); nodes[31].appendChild(nodes[24]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[11], nodes[21])) { nodes[11].parentNode.removeChild(nodes[11]); nodes[21].appendChild(nodes[11]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[29], nodes[8])) { nodes[29].parentNode.removeChild(nodes[29]); nodes[8].appendChild(nodes[29]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[22], nodes[37])) { nodes[22].parentNode.removeChild(nodes[22]); nodes[37].appendChild(nodes[22]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[26], nodes[24])) { nodes[26].parentNode.removeChild(nodes[26]); nodes[24].appendChild(nodes[26]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[49], nodes[30])) { nodes[49].parentNode.removeChild(nodes[49]); nodes[30].appendChild(nodes[49]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[18], nodes[22])) { nodes[18].parentNode.removeChild(nodes[18]); nodes[22].appendChild(nodes[18]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[13], nodes[8])) { nodes[13].parentNode.removeChild(nodes[13]); nodes[8].appendChild(nodes[13]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[39], nodes[17])) { nodes[39].parentNode.removeChild(nodes[39]); nodes[17].appendChild(nodes[39]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[38], nodes[7])) { nodes[38].parentNode.removeChild(nodes[38]); nodes[7].appendChild(nodes[38]); }
+window.setTimeout('comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[40], nodes[0])) { nodes[40].parentNode.removeChild(nodes[40]); nodes[0].appendChild(nodes[40]); }', 81);
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[38], nodes[8])) { nodes[38].parentNode.removeChild(nodes[38]); nodes[8].appendChild(nodes[38]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[39], nodes[46])) { nodes[39].parentNode.removeChild(nodes[39]); nodes[46].appendChild(nodes[39]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[12], nodes[34])) { nodes[12].parentNode.removeChild(nodes[12]); nodes[34].appendChild(nodes[12]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[24], nodes[4])) { nodes[24].parentNode.removeChild(nodes[24]); nodes[4].appendChild(nodes[24]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[25], nodes[6])) { nodes[25].parentNode.removeChild(nodes[25]); nodes[6].appendChild(nodes[25]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[27], nodes[46])) { nodes[27].parentNode.removeChild(nodes[27]); nodes[46].appendChild(nodes[27]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[13], nodes[19])) { nodes[13].parentNode.removeChild(nodes[13]); nodes[19].appendChild(nodes[13]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[19], nodes[34])) { nodes[19].parentNode.removeChild(nodes[19]); nodes[34].appendChild(nodes[19]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[42], nodes[35])) { nodes[42].parentNode.removeChild(nodes[42]); nodes[35].appendChild(nodes[42]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[4], nodes[3])) { nodes[4].parentNode.removeChild(nodes[4]); nodes[3].appendChild(nodes[4]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[38], nodes[32])) { nodes[38].parentNode.removeChild(nodes[38]); nodes[32].appendChild(nodes[38]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[10], nodes[44])) { nodes[10].parentNode.removeChild(nodes[10]); nodes[44].appendChild(nodes[10]); }
+comments[current_comment++].data = buffers[0]; if(move_is_safe(nodes[24], nodes[39])) { nodes[24].parentNode.removeChild(nodes[24]); nodes[39].appendChild(nodes[24]); }
+comments[current_comment++].data = buffers[1]; if(move_is_safe(nodes[34], nodes[31])) { nodes[34].parentNode.removeChild(nodes[34]); nodes[31].appendChild(nodes[34]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[24], nodes[6])) { nodes[24].parentNode.removeChild(nodes[24]); nodes[6].appendChild(nodes[24]); }
+comments[current_comment++].data = buffers[2]; if(move_is_safe(nodes[40], nodes[5])) { nodes[40].parentNode.removeChild(nodes[40]); nodes[5].appendChild(nodes[40]); }
+comments[current_comment++].data = buffers[1]; nodes[44].appendChild(nodes[9].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[33].appendChild(nodes[34].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[22].appendChild(nodes[44].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[49].appendChild(nodes[7].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[32].appendChild(nodes[24].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[38].appendChild(nodes[2].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[1].appendChild(nodes[30].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[30].appendChild(nodes[6].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[17].appendChild(nodes[24].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[2]; nodes[6].appendChild(nodes[24].cloneNode(false));', 22);
+comments[current_comment++].data = buffers[1]; nodes[28].appendChild(nodes[12].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[1]; nodes[44].appendChild(nodes[26].cloneNode(false));', 10);
+comments[current_comment++].data = buffers[1]; nodes[35].appendChild(nodes[42].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[50].appendChild(nodes[20].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[36].appendChild(nodes[28].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[12].appendChild(nodes[0].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[39].appendChild(nodes[45].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[28].appendChild(nodes[31].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[30].appendChild(nodes[12].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[41].appendChild(nodes[13].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[6].appendChild(nodes[26].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[12].appendChild(nodes[5].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[1]; nodes[18].appendChild(nodes[22].cloneNode(false));', 91);
+comments[current_comment++].data = buffers[2]; nodes[16].appendChild(nodes[46].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[6].appendChild(nodes[42].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[22].appendChild(nodes[25].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[37].appendChild(nodes[4].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[21].appendChild(nodes[23].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[40].appendChild(nodes[3].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[16].appendChild(nodes[44].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[8].appendChild(nodes[47].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[14].appendChild(nodes[25].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[40].appendChild(nodes[45].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[0]; nodes[16].appendChild(nodes[36].cloneNode(false));', 64);
+comments[current_comment++].data = buffers[0]; nodes[34].appendChild(nodes[15].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[3].appendChild(nodes[29].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[1]; nodes[4].appendChild(nodes[37].cloneNode(false));', 29);
+comments[current_comment++].data = buffers[2]; nodes[49].appendChild(nodes[22].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[23].appendChild(nodes[15].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[20].appendChild(nodes[14].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[14].appendChild(nodes[14].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[40].appendChild(nodes[28].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[0]; nodes[38].appendChild(nodes[40].cloneNode(false));', 70);
+comments[current_comment++].data = buffers[2]; nodes[3].appendChild(nodes[8].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[47].appendChild(nodes[5].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[27].appendChild(nodes[19].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[7].appendChild(nodes[2].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[3].appendChild(nodes[36].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[48].appendChild(nodes[17].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[39].appendChild(nodes[49].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[37].appendChild(nodes[29].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[1]; nodes[19].appendChild(nodes[41].cloneNode(false));', 15);
+comments[current_comment++].data = buffers[1]; nodes[23].appendChild(nodes[45].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[25].appendChild(nodes[41].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[44].appendChild(nodes[5].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[6].appendChild(nodes[29].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[6].appendChild(nodes[33].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[36].appendChild(nodes[27].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[36].appendChild(nodes[24].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[2]; nodes[48].appendChild(nodes[40].cloneNode(false));', 80);
+comments[current_comment++].data = buffers[2]; nodes[29].appendChild(nodes[39].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[6].appendChild(nodes[0].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[2].appendChild(nodes[38].cloneNode(false));
+comments[current_comment++].data = buffers[2]; nodes[49].appendChild(nodes[28].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[22].appendChild(nodes[48].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[23].appendChild(nodes[21].cloneNode(false));
+window.setTimeout('comments[current_comment++].data = buffers[0]; nodes[22].appendChild(nodes[26].cloneNode(false));', 11);
+comments[current_comment++].data = buffers[2]; nodes[18].appendChild(nodes[30].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[4].appendChild(nodes[27].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[28].appendChild(nodes[49].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[40].appendChild(nodes[50].cloneNode(false));
+comments[current_comment++].data = buffers[0]; nodes[12].appendChild(nodes[15].cloneNode(false));
+comments[current_comment++].data = buffers[1]; nodes[26].appendChild(nodes[22].cloneNode(false));
+setTimeout('for(x in nodes) nodes[x].parentNode.removeChild(nodes[x]);', 150);
+}
+</script><body onload="boom();"></body></html>

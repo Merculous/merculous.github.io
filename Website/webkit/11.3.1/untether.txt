@@ -1,0 +1,8 @@
+<=11.1.2
+
+Possible untether?
+
+LaunchDaemon bug #1: 8bd74394658dba8d20e1bd4aa7aff7bedf420c17b6fd056856cd64e3aa031126 
+LaunchDaemon bug #2: b4bdaf6e6bec898a9550ed7c039f29d2c212756c15bf3683802b16d6506a8908
+
+Fuzz this?

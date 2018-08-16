@@ -1,0 +1,6 @@
+targets=$(for x in $(pquery --raw --repo chromiumos -n 2> /dev/null); \
+  do [ "$(pquery --raw --repo portage-stable $x 2> /dev/null| wc -l)" != 0 ] \
+  && echo $x; done)
+{ pquery --attr repo --repo chromiumos ${targets} --raw; \
+  pquery --attr repo --repo portage-stable ${targets} --raw; } | sort -g | \
+  less
