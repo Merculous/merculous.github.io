@@ -1,0 +1,146 @@
+$ chromium-browser --debug --single-process raw.html 
+# Env:
+#     LD_LIBRARY_PATH=/usr/lib/chromium-browser:<trimmed>
+#                PATH=/usr/lib/chromium-browser:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:<trimmed>
+#            GTK_PATH=
+# CHROMIUM_USER_FLAGS=
+#      CHROMIUM_FLAGS=
+/usr/bin/gdb /usr/lib/chromium-browser/chromium-browser -x /tmp/chromiumargs.AOREFd
+GNU gdb (GDB) 7.1-ubuntu
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /usr/lib/chromium-browser/chromium-browser...Reading symbols from /usr/lib/debug/usr/lib/chromium-browser/chromium-browser...done.
+done.
+(gdb) run
+Starting program: /usr/lib/chromium-browser/chromium-browser --single-process raw.html
+[Thread debugging using libthread_db enabled]
+warning: the debug information found in "/usr/lib/debug//usr/lib/libxcb.so.1.1.0" does not match "/usr/lib/libxcb.so.1" (CRC mismatch).
+
+warning: the debug information found in "/usr/lib/debug/usr/lib/libxcb.so.1.1.0" does not match "/usr/lib/libxcb.so.1" (CRC mismatch).
+
+[New Thread 0x7fffe890f700 (LWP 11213)]
+[New Thread 0x7fffe810e700 (LWP 11214)]
+[New Thread 0x7fffe74ad700 (LWP 11215)]
+[New Thread 0x7fffe6cac700 (LWP 11216)]
+[New Thread 0x7fffe64ab700 (LWP 11217)]
+[New Thread 0x7fffe5caa700 (LWP 11218)]
+[New Thread 0x7fffe54a9700 (LWP 11219)]
+[New Thread 0x7fffe4ca8700 (LWP 11220)]
+[New Thread 0x7ffff4e38700 (LWP 11221)]
+[New Thread 0x7fffe44a7700 (LWP 11222)]
+[New Thread 0x7fffe3a7f700 (LWP 11223)]
+[Thread 0x7fffe3a7f700 (LWP 11223) exited]
+[New Thread 0x7fffe3a7f700 (LWP 11224)]
+[New Thread 0x7fffe0642700 (LWP 11225)]
+[11205:11220:58461951281:ERROR:chrome/browser/net/chrome_url_request_context.cc(105)] Cannot use V8 Proxy resolver in single process mode.
+[New Thread 0x7fffdf749700 (LWP 11226)]
+[New Thread 0x7fffba96c700 (LWP 11227)]
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x7fffe3a7f700 (LWP 11224)]
+0x00007ffff6a70723 in WebCore::CounterNode::lastDescendant (
+    this=0x7ffff922b900)
+    at third_party/WebKit/WebCore/rendering/CounterNode.cpp:78
+78	third_party/WebKit/WebCore/rendering/CounterNode.cpp: No such file or directory.
+	in third_party/WebKit/WebCore/rendering/CounterNode.cpp
+(gdb) bt
+#0  0x00007ffff6a70723 in WebCore::CounterNode::lastDescendant (
+    this=0x7ffff922b900)
+    at third_party/WebKit/WebCore/rendering/CounterNode.cpp:78
+#1  0x00007ffff6a4881c in destroyCounterNodeWithoutMapRemoval (identifier=..., 
+    node=0x7ffff922b900)
+    at third_party/WebKit/WebCore/rendering/RenderCounter.cpp:354
+#2  0x00007ffff6a4a268 in WebCore::RenderCounter::destroyCounterNodes (
+    renderer=0x7ffff8f8c710)
+    at third_party/WebKit/WebCore/rendering/RenderCounter.cpp:384
+#3  0x00007ffff694d040 in WebCore::RenderObject::destroy (this=0x7ffff8f8c710)
+    at third_party/WebKit/WebCore/rendering/RenderObject.cpp:2166
+#4  0x00007ffff6729f7a in WebCore::Node::detach (this=0x7ffff924d000)
+    at third_party/WebKit/WebCore/dom/Node.cpp:1214
+#5  0x00007ffff671c284 in WebCore::Element::detach (this=0x7ffff924d000)
+    at third_party/WebKit/WebCore/dom/Element.cpp:877
+#6  0x00007ffff66ecf5b in WebCore::ContainerNode::removeBetween (
+    this=0x7ffff90c1700, previousChild=<value optimized out>, 
+    nextChild=<value optimized out>, oldChild=<value optimized out>)
+    at third_party/WebKit/WebCore/dom/ContainerNode.cpp:458
+#7  0x00007ffff66ef97d in WebCore::ContainerNode::removeChild (
+    this=0x7ffff90c1700, oldChild=0x7ffff924d000, ec=<value optimized out>)
+    at third_party/WebKit/WebCore/dom/ContainerNode.cpp:435
+#8  0x00007ffff665a349 in WebCore::V8Node::removeChildCallback (args=...)
+---Type <return> to continue, or q <return> to quit---
+    at third_party/WebKit/WebCore/bindings/v8/custom/V8NodeCustom.cpp:105
+#9  0x00007ffff5e5c21b in HandleApiCallHelper<false> (args=...)
+    at v8/src/builtins.cc:983
+#10 Builtin_HandleApiCall (args=...) at v8/src/builtins.cc:1000
+#11 0x00007fffbaeba32a in ?? ()
+#12 0x00007fffbaedb9d6 in ?? ()
+#13 0x00007fffbaeba2c1 in ?? ()
+#14 0x00007fffe3a7e470 in ?? ()
+#15 0x00007fffe3a7e4f0 in ?? ()
+#16 0x00007fffbaedb47a in ?? ()
+#17 0x00007fffbadbc491 in ?? ()
+#18 0x00007fffdc0bd9c9 in ?? ()
+#19 0x00007fffdc0b19e9 in ?? ()
+#20 0x0000000500000000 in ?? ()
+#21 0x0000003300000000 in ?? ()
+#22 0x00007fffdc0fb539 in ?? ()
+#23 0x0000000000000000 in ?? ()
+(gdb) disassemble
+Dump of assembler code for function _ZNK7WebCore11CounterNode14lastDescendantEv:
+   0x00007ffff6a70710 <+0>:	mov    0x38(%rdi),%rax
+   0x00007ffff6a70714 <+4>:	test   %rax,%rax
+   0x00007ffff6a70717 <+7>:	jne    0x7ffff6a70723 <_ZNK7WebCore11CounterNode14lastDescendantEv+19>
+   0x00007ffff6a70719 <+9>:	jmp    0x7ffff6a7072c <_ZNK7WebCore11CounterNode14lastDescendantEv+28>
+   0x00007ffff6a7071b <+11>:	nopl   0x0(%rax,%rax,1)
+   0x00007ffff6a70720 <+16>:	mov    %rdx,%rax
+=> 0x00007ffff6a70723 <+19>:	mov    0x38(%rax),%rdx
+   0x00007ffff6a70727 <+23>:	test   %rdx,%rdx
+   0x00007ffff6a7072a <+26>:	jne    0x7ffff6a70720 <_ZNK7WebCore11CounterNode14lastDescendantEv+16>
+   0x00007ffff6a7072c <+28>:	repz retq 
+End of assembler dump.
+(gdb) i r rax
+rax            0x200000	2097152
+(gdb) i r
+rax            0x200000	2097152
+rbx            0x7ffff8f8c710	140737370441488
+rcx            0x7ffff8f8c710	140737370441488
+rdx            0x200000	2097152
+rsi            0x7ffff922b900	140737373190400
+rdi            0x7ffff922b900	140737373190400
+rbp            0x7ffff9262e10	0x7ffff9262e10
+rsp            0x7fffe3a7e1a8	0x7fffe3a7e1a8
+r8             0x0	0
+r9             0x0	0
+r10            0x1	1
+r11            0x1	1
+r12            0x7fffe3a7e210	140737012818448
+r13            0x7ffff922b900	140737373190400
+r14            0x7ffff9298d60	140737373637984
+r15            0x7fffe3a7e210	140737012818448
+rip            0x7ffff6a70723	0x7ffff6a70723 <WebCore::CounterNode::lastDescendant() const+19>
+eflags         0x10206	[ PF IF RF ]
+cs             0x33	51
+ss             0x2b	43
+ds             0x0	0
+es             0x0	0
+---Type <return> to continue, or q <return> to quit---
+fs             0x0	0
+gs             0x0	0
+(gdb) print *this
+$1 = {<WTF::RefCounted<WebCore::CounterNode>> = {<WTF::RefCountedBase> = {
+      m_refCount = 1}, <WTFNoncopyable::Noncopyable> = {<WTF::FastAllocBase> = {<No data fields>}, <No data fields>}, <No data fields>}, 
+  m_hasResetType = false, m_value = 1, m_countInParent = 0, 
+  m_renderer = 0x7ffff8f8c710, m_parent = 0x0, m_previousSibling = 0x0, 
+  m_nextSibling = 0x0, m_firstChild = 0x7ffff92b2d40, 
+  m_lastChild = 0x7ffff922b8c0}
+(gdb) info locals
+lastChild = 0x200000
+last = 0x200000
+(gdb) 
+

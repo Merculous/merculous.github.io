@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://bugs.chromium.org/p/project-zero/issues/detail?id=862 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <link rel="icon" type="image/vnd.microsoft.icon" href="https://bugs.chromium.org/static/images/monorail.ico">
+ 
+ <link rel="canonical" href="https://bugs.chromium.org/p/project-zero/issues/detail?id=862">
+ 
+ <script async="" nonce="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/analytics.js"></script><script async="" nonce="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/feedback.js"></script><script type="text/javascript" nonce="">
+ 
+ var CS_env = {
+ 'absoluteBaseUrl': 'https://bugs.chromium.org',
+ 'app_version': '16938-fa0ca4f.411694790959551029',
+ 'token': 'vY3_HGEhdtietaKwwgfIhjoxNTM0MjI0NjAw',
+ 'tokenExpiresSec': 1534231500,
+ 'loggedInUserEmail':
+ 
+ null
+ ,
+ 'login_url': 'https://accounts.google.com/ServiceLogin?service\x3dah\x26passive\x3dtrue\x26continue\x3dhttps://appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttps://bugs.chromium.org/p/project-zero/issues/detail%253Fid%253D862',
+ 'logout_url': 'https://bugs.chromium.org/_ah/logout?continue\x3dhttps://accounts.google.com/Logout%3Fcontinue%3Dhttps://appengine.google.com/_ah/logout%253Fcontinue%253Dhttps://google.com/url%25253Fsa%25253DD%252526q%25253Dhttps://bugs.chromium.org/p/project-zero/issues/detail%2525253Fid%2525253D862%252526ust%25253D1534311454534141%252526usg%25253DAFQjCNE9W9PXKj5MhXPdenQVkVqUgzOn2A%26service%3Dah',
+ 'profileUrl':
+ 
+ null
+ ,
+ 'projectName': 'project-zero',
+ 'is_member': '',
+ };
+ </script>
+ 
+ 
+ <title>
+ 862 - 
+ WebKit: Memory Corruption in TypedArray.copyWithin - 
+ 
+ project-zero -
+ 
+ 
+ Monorail
+ </title>
+ 
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <meta name="referrer" content="no-referrer">
+ 
+ <meta name="ROBOTS" content="NOARCHIVE">
+ 
+ <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+ <link type="text/css" rel="stylesheet" href="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/ph_core.css">
+ <link type="text/css" rel="stylesheet" media="(max-width:425px)" href="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/ph_mobile.css">
+ 
+ <link type="text/css" rel="stylesheet" href="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/ph_detail.css">
+ 
+ 
+ 
+ 
+<link href="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/css" rel="stylesheet"><style>
+    .__crdxFeedbackButton {
+      background-image: url('https://crdx-feedback.appspot.com.storage.googleapis.com/icon.png');
+      background-size: cover;
+      bottom: 32px;
+      height: 32px;
+      opacity: .4;
+      position: fixed;
+      right: 24px;
+      text-decoration: none;
+      transition: opacity .2s;
+      width: 32px;
+      z-index: 8675309; /* Jenny */
+    }
+    .__crdxFeedbackButton:hover,
+    .__crdxFeedbackButton:hover::after {
+      opacity: .75;
+    }
+    .__crdxFeedbackButton::after {
+      color: #707070;
+      content: "Feedback";
+      font-size: 12px;
+      left: 50%;
+      opacity: 0;
+      position: absolute;
+      text-decoration: none;
+      top: 28px;
+      transform: translateX(-50%);
+      transition: opacity .4s;
+      -webkit-transform: translateX(-50%);
+    }
+  </style></head><span id="warning-container"><i data-reactroot=""></i></span>
+<body class="t2 ">
+<script type="text/javascript" nonce="">
+ function _go(url, newWindow) {
+ if (newWindow)
+ window.open(url, '_blank');
+ else
+ document.location = url;
+ }
+ function $(id) { return document.getElementById(id); }
+ var loadQueue = [];
+ function runOnLoad(fn) { loadQueue.push(fn); }
+ window.onload = function() {
+ for (var i = 0; i < loadQueue.length; i++)
+ loadQueue[i]();
+ delete loadQueue;
+ };
+</script>
+
+<table id="monobar" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+ <tbody><tr>
+ 
+ <th class="padded">
+ <a href="https://bugs.chromium.org/" id="wordmark">Monorail</a>
+ </th>
+ 
+ 
+ <th class="toptabs padded">
+ <a href="https://bugs.chromium.org/p/project-zero/" title="Project Zero" id="projects-dropdown">Project: project-zero <small>▼</small></a>
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list" class="active">Issues</a>
+ <a href="https://bugs.chromium.org/p/project-zero/people/list" class="">People</a>
+ <a href="https://bugs.chromium.org/p/project-zero/adminIntro" class="">Development process</a>
+ <a href="https://bugs.chromium.org/p/project-zero/updates/list" class="">History</a>
+ 
+ </th>
+ 
+ 
+ 
+ <td width="100%" id="userbar">
+ <span style="padding: 0 1em">
+ 
+ <a href="https://accounts.google.com/ServiceLogin?service=ah&amp;passive=true&amp;continue=https://appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttps://bugs.chromium.org/p/project-zero/issues/detail%253Fid%253D862"><u>Sign in</u></a>
+ 
+</span>
+
+ </td>
+ </tr>
+</tbody></table>
+<script type="text/javascript" nonce="">
+runOnLoad(function() {
+ if ($("projects-dropdown"))
+ $("projects-dropdown").addEventListener("click", function(event) {
+ event.preventDefault();
+ });
+ if ($("hotlists-dropdown"))
+ $("hotlists-dropdown").addEventListener("click", function(event) {
+ event.preventDefault();
+ });
+});
+</script>
+
+ <div class="subt">
+ 
+ <div class="issueDetail">
+<div class="isf">
+ 
+ 
+ 
+ 
+ <span class="inIssueEntry" style="margin-right:.4em">
+ <a class="buttonify" href="https://accounts.google.com/ServiceLogin?service=ah&amp;passive=true&amp;continue=https://appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttps://bugs.chromium.org/p/project-zero/issues/entryafterlogin">New issue</a>
+ </span>
+ 
+ <span class="inIssueList" style="margin:0 .4em">
+ <label for="can">Search</label>
+ <form action="https://bugs.chromium.org/p/project-zero/issues/list" method="GET" style="display:inline">
+ <select id="can" name="can" ignore-dirty="">
+ 
+
+<option disabled="disabled">Search within:</option>
+<option value="1" title="All issues in the project">&nbsp;All issues</option>
+<option value="2" selected="selected" title="All issues except ones with a closed status">&nbsp;Open issues</option>
+
+<option value="6" title="[Open issues] status=New">&nbsp;New issues</option>
+<option value="7" title="[All issues] status=fixed,done">&nbsp;Issues to verify</option>
+
+ 
+ 
+ 
+ 
+
+
+
+ </select>
+ <label for="searchq">for</label>
+ <span id="qq"><input type="text" size="38" id="searchq" name="q" value="" autocomplete="off" ignore-dirty=""></span>
+ 
+ 
+ <span id="search_colspec"><input type="hidden" name="colspec" value="ID Status Restrict Reported Vendor Product Finder Summary"></span>
+ 
+ 
+ 
+ <input type="hidden" name="cells" value="ids">
+ 
+ <input type="submit" value="Search">
+ </form>
+ </span>
+ <span class="inIssueAdvSearch" style="margin:0 .4em">
+ <a href="https://bugs.chromium.org/p/project-zero/issues/advsearch">Advanced search</a>
+ </span>
+ <span class="inIssueSearchTips" style="margin:0 .4em">
+ <a href="https://bugs.chromium.org/p/project-zero/issues/searchtips">Search tips</a>
+ </span>
+ 
+</div>
+</div>
+
+
+<script type="text/javascript" nonce="">
+runOnLoad(function() {
+ 
+ var oldScope = "2";
+ function scopeChange() {
+ 
+ }
+ if ($("can"))
+ $("can").addEventListener("change", scopeChange);
+ if (typeof(ClientLogger) == "function") {
+ let searchq = document.querySelector("#searchq");
+ searchq.addEventListener("focus", function() {
+ let cl = new ClientLogger("issues");
+ cl.logStart("query-edit", "user-time");
+ cl.logStart("issue-search", "user-time");
+ });
+ searchq.addEventListener("blur", function() {
+ let cl = new ClientLogger("issues");
+ cl.logEnd("query-edit");
+ });
+ searchq.form.addEventListener("submit", function() {
+ let cl = new ClientLogger("issues");
+ cl.logEnd("query-edit");
+ cl.logPause("issue-search", "user-time");
+ cl.logStart("issue-search", "computer-time");
+ });
+ }
+});
+</script>
+
+
+
+
+
+ </div>
+
+
+ 
+
+
+
+
+
+
+<div id="maincol">
+ <table id="alert-table" align="center" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 6px;display: none">
+ <tbody><tr><td class="notice" id="notice">
+ 
+ 
+ 
+ 
+ 
+ </td></tr>
+ </tbody></table>
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+ 
+
+<div id="color_control" class="closed_colors">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="issuepage" id="meta-container">
+<tbody class="collapse"> 
+ <tr>
+ <td class="vt" style="width:12em; padding:0" rowspan="2" id="issuemeta">
+ <div id="meta-float">
+ <div class="h3 issuemetaheader">
+ 
+ 
+ <h1 class="not_styled_as_heading"><a href="https://bugs.chromium.org/p/project-zero/issues/detail?id=862">Issue 862</a></h1>
+ </div> 
+ <div class="issuemetaheader">
+ Starred by 1
+  user 
+ </div>
+ 
+ <div id="issue_meta_details">
+ 
+<h3 class="visually_hidden">Issue metadata</h3>
+<table cellspacing="0" cellpadding="0">
+ <tbody><tr><th align="left" style="padding-right:.3em">Status:</th>
+ <td width="100%">
+ 
+ <span title="Fixed = Developer made source code changes, QA should verify">Fixed</span>
+ 
+ </td>
+ </tr>
+ 
+ 
+ <tr><th align="left" class="vt">Owner:</th><td>
+ 
+ 
+<div class="userlink_avail" title="natashenka@google.com">
+ 
+ 
+ <a href="https://bugs.chromium.org/u/natashenka@google.com/">natashenka@google.com</a>
+</div>
+
+ 
+
+
+ 
+ </td>
+ </tr>
+ 
+ 
+ <tr><th align="left" valign="top" style="padding-right:.3em">Closed:</th>
+ <td align="left" valign="top" width="100%">
+ Jul 2016
+ </td>
+ </tr>
+ 
+ 
+ 
+ <tr><th class="vt" align="left">Cc:</th><td>
+ 
+ 
+ <i title="Derived">
+<div class="userlink_avail" title="project-...@google.com">
+ 
+ 
+ <a href="https://bugs.chromium.org/u/611522594/">project-...@google.com</a>
+</div>
+
+</i>
+ </td></tr>
+ 
+ 
+ 
+ 
+ <tr><td colspan="2" class="widemeta">
+ 
+ <div style="padding-top:2px">
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?q=label:Finder-natashenka" title="Finder-natashenka " class="label"><b>Finder-</b>natashenka</a>
+ 
+ </div>
+ 
+ <div style="padding-top:2px">
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?q=label:Deadline-90" title="Deadline-90 " class="label"><b>Deadline-</b>90</a>
+ 
+ </div>
+ 
+ <div style="padding-top:2px">
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?q=label:Vendor-Apple" title="Vendor-Apple " class="label"><b>Vendor-</b>Apple</a>
+ 
+ </div>
+ 
+ <div style="padding-top:2px">
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?q=label:Product-Safari" title="Product-Safari " class="label"><b>Product-</b>Safari</a>
+ 
+ </div>
+ 
+ <div style="padding-top:2px">
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?q=label:CCProjectZeroMembers" title="CCProjectZeroMembers " class="label">CCProjectZeroMembers</a>
+ 
+ </div>
+ 
+ <div style="padding-top:2px">
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?q=label:Severity-High" title="Severity-High " class="label"><b>Severity-</b>High</a>
+ 
+ </div>
+ 
+ <div style="padding-top:2px">
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?q=label:Reported-2016-Jun-28" title="Reported-2016-Jun-28 " class="label"><b>Reported-</b>2016-Jun-28</a>
+ 
+ </div>
+ 
+ <div style="padding-top:2px">
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?q=label:CVE-2016-4734" title="CVE-2016-4734 " class="label"><b>CVE-</b>2016-4734</a>
+ 
+ </div>
+ 
+ </td></tr>
+ 
+</tbody></table>
+<div class="rel_issues widemeta">
+ 
+ 
+ 
+ <br>
+ <span id="user-hotlists" style="display:none">
+ <b>Your hotlists:</b>
+ <div id="user-hotlists-list">
+ 
+ </div>
+ <br>
+ </span>
+ 
+ 
+ 
+</div>
+
+
+ <br><br>
+ 
+ 
+ <div style="white-space:nowrap"><a href="https://accounts.google.com/ServiceLogin?service=ah&amp;passive=true&amp;continue=https://appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttps://bugs.chromium.org/p/project-zero/issues/detail%253Fid%253D862">Sign in</a> to add a comment</div>
+ 
+ 
+
+
+<script type="text/javascript" nonce="">
+runOnLoad(function() {
+ if ($("addacomment")) {
+ $("addacomment").addEventListener("click", function(event) {
+ _openIssueUpdateForm();
+ event.preventDefault();
+ });
+ }
+ window.issueRef = "project-zero:862";
+ 
+});
+</script>
+
+ 
+ </div>
+ </div> 
+ </td>
+ <td width="90%" class="vt issueheader" id="summary-float">
+ 
+ <div id="flipper-box">
+ <div>
+ <mr-flipper>
+ </mr-flipper></div>
+ <div>
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/list?cursor=project-zero%3A862&amp;q=">Back to list</a>
+ 
+ </div>
+ </div>
+ <div>
+ <h1 class="not_styled_as_heading"><span class="h3" style="padding:4px">WebKit: Memory Corruption in TypedArray.copyWithin</span></h1>
+ <div style="padding:4px">
+ <span class="role_label">Project Member</span>
+ Reported by
+ <a style="white-space: nowrap" href="https://bugs.chromium.org/u/natashenka@google.com/" title="natashenka@google.com">natashenka@google.com</a>,
+ <span class="date" title="Tue Jun 28 21:45:02 2016 UTC">
+ Jun 28 2016
+ 
+ </span>
+ 
+ 
+ </div>
+ </div></td>
+ </tr>
+ <tr>
+ <td class="vt issuedescription" width="100%" height="100%" id="cursorarea" colspan="2">
+ <h3 class="visually_hidden">Issue description</h3>
+ 
+<div class="cursor_off vt issuedescription" id="hc0">
+
+<div id="all-descriptions">
+ 
+ <div id="d1">
+ <pre class="issue_text" tabindex="1">There is a bug in TypedArray.copyWithin that can be used to write to an absolute pointer. 
+
+In JavaScriptCore/runtime/JSGenericTypedArrayViewPrototypeFunctions.h, the function genericTypedArrayViewProtoFuncCopyWithin contains the following code:
+
+    long length = thisObject-&gt;length();
+    long to = argumentClampedIndexFromStartOrEnd(exec, 0, length);
+    long from = argumentClampedIndexFromStartOrEnd(exec, 1, length);
+    long final = argumentClampedIndexFromStartOrEnd(exec, 2, length, length);
+
+    if (final &lt; from)
+        return JSValue::encode(exec-&gt;thisValue());
+
+    long count = std::min(length - std::max(to, from), final - from);
+
+    typename ViewClass::ElementType* array = thisObject-&gt;typedVector();
+    memmove(array + to, array + from, count * thisObject-&gt;elementSize);
+
+argumentClampedIndexFromStartOrEnd will call valueOf on a parameter to the copyWithin function, which can contain a function that neuters the this array, causing the variable "array" to be null. However, the "to" and "from" variables can be very large values, up to 0x7fffffff, which could be valid pointers on ARM and 32-bit platforms. This allows an absolute pointer in this range to be written to.
+
+An HTML file demonstrating this issue is attached. This issue affects Safari Technology Preview and WebKit, but has not made it into production Safari yet (TypedArray.copyWithin is not supported).
+
+<b>This bug is subject to a 90 day disclosure deadline. If 90 days elapse</b>
+<b>without a broadly available patch, then the bug report will automatically</b>
+<b>become visible to the public.</b>
+
+ </pre>
+ 
+ <div class="attachments">
+ 
+ 
+
+
+
+
+ <table cellspacing="3" cellpadding="2" border="0">
+ <tbody><tr><td width="20">
+ <a href="https://bugs.chromium.org/p/project-zero/issues/attachment?aid=240880&amp;signed_aid=zFqOl6gkBd-eiqXiw0R9qw==">
+ <img width="16" height="16" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/paperclip.png" border="0">
+ </a>
+ </td>
+ <td style="min-width:16em" valign="top">
+ 
+ <b>copyWithin.html</b>
+ <br>
+ 479 bytes
+ 
+ 
+ <a href="https://bugs.chromium.org/p/project-zero/issues/attachmentText?aid=240880" target="_blank" style="margin-left:.7em">View</a>
+ 
+ <a download="copyWithin.html" href="https://bugs.chromium.org/p/project-zero/issues/attachment?aid=240880&amp;signed_aid=zFqOl6gkBd-eiqXiw0R9qw==" style="margin-left:.7em">Download</a>
+ 
+ </td>
+ 
+ </tr>
+ 
+ 
+ </tbody></table>
+
+
+ 
+ </div>
+ 
+ </div>
+ 
+ 
+</div>
+
+</div>
+
+ 
+
+
+ 
+ 
+ 
+ 
+ <div class="">
+ <div class="cursor_off vt issuecomment" id="hc1">
+ <div class="issuecommentheader">
+ <span class="author">
+ <span class="role_label">Project Member</span>
+ <h3 class="not_styled_as_heading">
+ <a name="c1" id="c_ts1467151586" href="https://bugs.chromium.org/p/project-zero/issues/detail?id=862#c1">Comment 1</a>
+ by
+ <a style="white-space: nowrap" href="https://bugs.chromium.org/u/natashenka@google.com/" title="natashenka@google.com">natashenka@google.com</a>,
+ <span class="date" title="Tue Jun 28 22:06:26 2016 UTC">
+ Jun 28 2016
+ 
+ </span>
+ </h3>
+ 
+ </span></div>
+ <div class="issuecommentbody" tabindex="0">
+ 
+ <div style="float:right; margin-right:.3em; text-align:right" class="ichcommands">
+ <span id="comment-action-loading-1" class="loading" style="display:none;">Processing</span>
+ 
+ 
+ </div>
+ 
+ 
+
+<pre class="issue_text">Filed WebKit security bug: <a href="https://bugs.webkit.org/show_bug.cgi?id=159231" title="" class="" rel="nofollow">https://bugs.webkit.org/show_bug.cgi?id=159231</a>
+</pre>
+ 
+ 
+ 
+ </div>
+</div>
+
+ </div>
+ 
+ 
+
+ 
+ 
+ 
+ 
+ <div class="">
+ <div class="cursor_off vt issuecomment" id="hc2">
+ <div class="issuecommentheader">
+ <span class="author">
+ <span class="role_label">Project Member</span>
+ <h3 class="not_styled_as_heading">
+ <a name="c2" id="c_ts1469832567" href="https://bugs.chromium.org/p/project-zero/issues/detail?id=862#c2">Comment 2</a>
+ by
+ <a style="white-space: nowrap" href="https://bugs.chromium.org/u/natashenka@google.com/" title="natashenka@google.com">natashenka@google.com</a>,
+ <span class="date" title="Fri Jul 29 22:49:27 2016 UTC">
+ Jul 29 2016
+ 
+ </span>
+ </h3>
+ 
+ </span></div>
+ <div class="issuecommentbody" tabindex="0">
+ 
+ <div style="float:right; margin-right:.3em; text-align:right" class="ichcommands">
+ <span id="comment-action-loading-2" class="loading" style="display:none;">Processing</span>
+ 
+ 
+ </div>
+ 
+ 
+ <table class="updates">
+ <tbody><tr><td class="box-inner">
+ 
+ <b>Labels:</b> -Restrict-View-Commit<br>
+
+ 
+ <b>Status:</b> Fixed (was: New)<br>
+
+ 
+ 
+ </td></tr>
+ </tbody></table>
+ 
+
+<pre class="issue_text">Fixed in Nightly. Unrestricting.
+</pre>
+ 
+ 
+ 
+ </div>
+</div>
+
+ </div>
+ 
+ 
+
+ 
+ 
+ 
+ 
+ <div class="">
+ <div class="cursor_off vt issuecomment" id="hc3">
+ <div class="issuecommentheader">
+ <span class="author">
+ <span class="role_label">Project Member</span>
+ <h3 class="not_styled_as_heading">
+ <a name="c3" id="c_ts1474393591" href="https://bugs.chromium.org/p/project-zero/issues/detail?id=862#c3">Comment 3</a>
+ by
+ <a style="white-space: nowrap" href="https://bugs.chromium.org/u/natashenka@google.com/" title="natashenka@google.com">natashenka@google.com</a>,
+ <span class="date" title="Tue Sep 20 17:46:31 2016 UTC">
+ Sep 20 2016
+ 
+ </span>
+ </h3>
+ 
+ </span></div>
+ <div class="issuecommentbody" tabindex="0">
+ 
+ <div style="float:right; margin-right:.3em; text-align:right" class="ichcommands">
+ <span id="comment-action-loading-3" class="loading" style="display:none;">Processing</span>
+ 
+ 
+ </div>
+ 
+ 
+ <table class="updates">
+ <tbody><tr><td class="box-inner">
+ 
+ <b>Labels:</b> -Severity-High CVE-2016-4734 Severity-HIgh<br>
+
+ 
+ 
+ </td></tr>
+ </tbody></table>
+ 
+
+
+ 
+ 
+ 
+ </div>
+</div>
+
+ </div>
+ 
+ 
+
+
+ 
+
+
+ </td>
+ </tr>
+
+ 
+ <tr>
+ <td></td>
+ <td class="vt issuecomment">
+ <div class="issuecommentheader" style="margin-bottom:1em"></div>
+ <span class="indicator">►</span>
+ <h2 class="not_styled_as_heading"><a href="https://accounts.google.com/ServiceLogin?service=ah&amp;passive=true&amp;continue=https://appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttps://bugs.chromium.org/p/project-zero/issues/detail%253Fid%253D862">Sign in</a> to add a comment</h2>
+ </td>
+ </tr>
+ 
+
+</tbody>
+</table>
+<br>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/prpc-client.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/common.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/listen.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/xmlhttp.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/shapes.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/geom.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/popup_controller.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-ajax.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/externs.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/ac.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-ac.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-components.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-dd.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-display.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-editing.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-fields.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-keystrokes.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-nav.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-util.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/tracker-onload.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/predict.js" nonce=""></script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/clientmon.js" nonce=""></script>
+
+
+
+ 
+
+</div> 
+<form name="delcom" action="https://bugs.chromium.org/p/project-zero/issues/delComment.do?q=&amp;can=2&amp;groupby=&amp;sort=&amp;colspec=ID+Status+Restrict+Reported+Vendor+Product+Finder+Summary" method="POST">
+ <input type="hidden" name="sequence_num" value="">
+ <input type="hidden" name="mode" value="">
+ <input type="hidden" name="id" value="862">
+ <input type="hidden" name="token" value="J_WDjuHuk9uHJD-PKzkGfDoxNTM0MjI0NjAw">
+ <input type="hidden" name="hotlist_id" value="">
+</form>
+<form name="flagcom" action="https://bugs.chromium.org/p/project-zero/issues/flagspam.do" method="post">
+ <input type="hidden" name="comment_id" value="">
+ <input type="hidden" name="sequence_num" value="">
+ <input type="hidden" name="spam" value="">
+ <input type="hidden" name="id" value="862">
+ <input type="hidden" name="token" value="gDbAvXHTpO6CjFxLyNIaYzoxNTM0MjI0NjAw">
+</form>
+<div id="helparea"></div>
+<script type="text/javascript" nonce="">
+runOnLoad(function() {
+ _fetchOptions('project-zero', CS_env.token,
+ 1524074914);
+ _fetchUserProjects(false);
+ _onload();
+ function showDescription(n, changeSelect) {
+ for (var i = 1; i <= descCt; i++)
+ $('d' + i).style.display = 'none';
+ if (changeSelect)
+ $('description-select').selectedIndex = n - 1;
+ if (n) {
+ $('d' + n).style.display = '';
+ getParams.desc = n;
+ if (window.history && history.replaceState)
+ history.replaceState(
+ '', '', makeQueryString(getParams) + window.location.hash);
+ }
+ }
+ 
+ var descCt = 1;
+ 
+ 
+ function delComment(sequence_num, delete_mode) {
+ var r = true;
+ if (delete_mode == 1) {
+ r = confirm('Delete this comment?');
+ }
+ if (!r) {
+ return false;
+ }
+ var f = document.forms["delcom"];
+ f.sequence_num.value = sequence_num;
+ f.mode.value = delete_mode;
+ 
+ var loading = $('comment-action-loading-' + sequence_num);
+ loading.style.display = 'inline';
+ TKR_initialFormValues = TKR_currentFormValues();
+ f.submit();
+ return false;
+ }
+ if ($("star"))
+ $("star").addEventListener("click", function (event) {
+ _TKR_toggleStar($("star"), "project-zero", 862, null, null, "jELJCIf1-JgQbEEj67W3YToxNTM0MjI0NjAw");
+ _TKR_syncStarIcons($("star"), "star2");
+ });
+ var delCommentElements = document.getElementsByClassName("delComment");
+ for (var i = 0; i < delCommentElements.length; ++i) {
+ var el = delCommentElements[i];
+ el.addEventListener("click", function(event) {
+ var sequence = event.target.getAttribute("data-sequence");
+ var mode = event.target.getAttribute("data-mode");
+ delComment(sequence, mode);
+ event.preventDefault();
+ });
+ }
+ function flagComment(comment_id, sequence_num, isSpam) {
+ var f = document.forms["flagcom"];
+ f.comment_id.value = comment_id;
+ f.sequence_num.value = sequence_num;
+ f.spam.value = isSpam.toLowerCase() == "false";
+ var loading = $('comment-action-loading-' + sequence_num);
+ loading.style.display = 'inline';
+ TKR_initialFormValues = TKR_currentFormValues();
+ f.submit();
+ return false;
+ }
+ var flagCommentElements = document.getElementsByClassName("flagComment");
+ for (var i = 0; i < flagCommentElements.length; ++i) {
+ var el = flagCommentElements[i];
+ el.addEventListener("click", function(event) {
+ var id = event.target.getAttribute("data-id");
+ var sequence = event.target.getAttribute("data-sequence");
+ var isSpam = event.target.getAttribute("data-spam");
+ flagComment(id, sequence, isSpam);
+ event.preventDefault();
+ });
+ }
+ window.onsubmit = function() {
+ if (typeof(ClientLogger) === "function") {
+ let l = new ClientLogger("issues");
+ l.logStart("issue-update", "computer-time");
+ }
+ TKR_initialFormValues = TKR_currentFormValues();
+ };
+ window.onbeforeunload = function() {
+ if (TKR_isDirty()) {
+ // This message is ignored in recent versions of Chrome and Firefox.
+ return "You have unsaved changes. Leave this page and discard them?";
+ }
+ };
+});
+</script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/kibbles-1.3.3.comp.js" nonce=""></script>
+<script type="text/javascript" nonce="">
+runOnLoad(function() {
+ // TODO(jeffcarp): Update prev/next URLs once flipper index has loaded.
+ _setupKibblesOnDetailPage(
+ 'https://bugs.chromium.org/p/project-zero/issues/list?cursor\x3dproject-zero%3A862\x26q\x3d',
+ '/p/project-zero/issues/entry',
+ `/p/project-zero/issues/detail/previous${location.search}`,
+ `/p/project-zero/issues/detail/next${location.search}`,
+ 'project-zero', 862,
+ false, false, 'jELJCIf1-JgQbEEj67W3YToxNTM0MjI0NjAw');
+});
+</script>
+
+ <link rel="import" href="https://bugs.chromium.org/elements/mr-flipper/mr-flipper.vulcanized.html?version=16938-fa0ca4f.411694790959551029" nonce="">
+ <script src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/mr-flipper.vulcanized.js" nonce=""></script>
+
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/externs(1).js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/env.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-ajax.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-cues.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-display.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-menu.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-myprojects.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-myhotlists.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-accountmenu.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/framework-stars.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/project-name-check.js" nonce=""></script>
+ <script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/xmlhttp.js" nonce=""></script>
+ <script type="text/javascript" nonce="">
+runOnLoad(function() {
+ var toggles = document.getElementsByClassName("toggleHidden");
+ for (var i = 0; i < toggles.length; ++i) {
+ var toggle = toggles[i];
+ toggle.addEventListener("click", function (event) {
+ _toggleHidden(event.target);
+ event.preventDefault();
+ });
+ }
+ toggles = document.getElementsByClassName("toggleCollapse");
+ for (var i = 0; i < toggles.length; ++i) {
+ var toggle = toggles[i];
+ toggle.addEventListener("click", function (event) {
+ _toggleCollapse(event.target);
+ event.preventDefault();
+ });
+ }
+ 
+});
+ </script>
+</div> 
+<div id="footer">
+ <a href="https://bugs.chromium.org/p/monorail/adminIntro" title="Monorail 16938-fa0ca4f.411694790959551029">About Monorail</a>
+ <a href="https://chromium.googlesource.com/infra/infra/+/master/appengine/monorail/doc/release-notes.md">Release Notes</a>
+ <a href="https://bugs.chromium.org/p/monorail/issues/entry" target="_blank">Feedback on Monorail</a>
+ <a href="https://www.google.com/policies/terms/">Terms</a>
+ <a href="https://www.google.com/policies/privacy/">Privacy</a>
+</div>
+ 
+ 
+
+
+<script type="text/javascript" nonce="">
+runOnLoad(function() {
+ // CrDX Feedback Button
+ (function(i,s,o,g,r,a,m){i['CrDXObject']=r;i[r]=i[r]||function(){
+ (i[r].q=i[r].q||[]).push(arguments)},a=s.createElement(o),
+ m=s.getElementsByTagName(o)[0];a.async=1;a.setAttribute('nonce','Iv53xEXJH5XOkfMr5iJajWOtvXaqlLxk');
+ a.src=g;m.parentNode.insertBefore(a,m)
+ })(window,document,'script','https://storage.googleapis.com/crdx-feedback.appspot.com/feedback.js','crdx');
+ crdx('setFeedbackButtonLink', 'https://bugs.chromium.org/p/monorail/issues/entry?template=Online%20Feedback');
+ // Google Analytics
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+ m=s.getElementsByTagName(o)[0];a.async=1;a.setAttribute('nonce','Iv53xEXJH5XOkfMr5iJajWOtvXaqlLxk');
+ a.src=g;m.parentNode.insertBefore(a,m)
+ })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ ga('create', 'UA-55762617-14', {'siteSpeedSampleRate': 100});
+ 
+ 
+ ga('set', 'dimension1', 'Not logged in');
+ 
+ const pathname = window.location.pathname;
+ // Don't track individual issue detail pages; track them all together.
+ if (pathname.endsWith('/issues/detail')) {
+ ga('set', 'title', 'Issue Detail');
+ }
+ // Don't track individual search terms; track all lists together.
+ if (pathname.endsWith('/issues/list')) {
+ ga('set', 'title', 'Issue List');
+ }
+ ga('send', 'pageview');
+});
+</script>
+<script type="text/javascript" defer="" src="./862 - WebKit_ Memory Corruption in TypedArray.copyWithin - project-zero - Monorail_files/ga.js" nonce=""></script>
+ 
+
+
+<script type="text/javascript" nonce="">
+runOnLoad(function() {
+ if (typeof(ClientLogger) === "function") {
+ let cl = new ClientLogger("issues");
+ if (cl.started("new-issue")) {
+ cl.logEnd("new-issue");
+ }
+ if (cl.started("issue-search")) {
+ cl.logEnd("issue-search");
+ }
+ if (cl.started("issue-update")) {
+ cl.logEnd("issue-update");
+ }
+ }
+});
+</script>
+<div class="menuDiv instance0" id="menuDiv-projects-dropdown" style="position: absolute; display: none; top: 22px; left: 127px;"><div class="menuCategory default" style="display: none;"></div></div><a class="__crdxFeedbackButton" target="_blank" href="https://bugs.chromium.org/p/monorail/issues/entry?template=Online%20Feedback"></a></body></html>
