@@ -188,6 +188,10 @@ Go back to 0x1340, make sure you're on the line, enter hex, press F2 and replace
 
 <p class="cli">./ida_patcher -f iBEC.prepatched -p iBEC.dif</p>
 
+<p>We need to repack our patched iBEC back into a img3 format</p>
+
+<p class="cli">./image3maker -f iBEC.prepatched -t ibec -o iBEC</p>
+
 <p>iBEC patching is done!</p>
 
 <a href="partitioning.html" target="_blank">It's now time to partition!</a>
