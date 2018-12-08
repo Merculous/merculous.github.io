@@ -10,6 +10,29 @@
 
 <body>
 
+	<p>
+		Multibooting is not quite popular amongst normal users. Normally you'd just want to achieve a regular dualboot and you're set.<br>
+		It serves a purpose only if you're only purposely booting into multiple os's. If you want to achieve, let's just say, a "dualboot"<br>
+		consisting of a main os of iOS 7, a secondary iOS of 6, and the final iOS as 6, then you can use this guide to do that such thing.
+		<br>
+		<br>
+		Firstly, if you want to do a triple-boot, quad, or however many you feel like doing, you need to make sure that you change the "rd=disk0s1s(x)"<br>
+		variable. We normally set this in the iBEC with the boot-arg of "disk0s1s3," but if we are doing a triple-boot, we need to specify the other<br>
+		iBEC that we don't intend on using disk0s1s3 and actually use disk0s1s5 as our "third" os. So, make sure its boot-arg is set to "rd=disk0s1s3,<br>
+		disk0s1s5, disk0s1s7, and etc.
+		<br>
+		<br>
+		After you set the boot-arg to iBEC, we need to not only tell iBEC what filesystem will be loaded, but its exact location within the main os.<br>
+		We need to set a variable in iBEC to make sure that we load our correct partition which will contain our third filesystem.
+		<br>
+		<br>
+		So, as usual, make sure you do the same as every other file we patch. After that is completed, we need to search for a string which we need to <br>
+		change which will tell iBEC which filesystem we need to load. Enter the strings window and search for "failed to mount upgrade partition."<br>
+		We need to change "a2" to hold the value of 4, so enter hex view and change "32" to "34." That's literally it. That's how you patch to <br>
+		enable yourself to multiboot. Pretty simple huh? I'd hope so. This is literally the most simplest patch, along the DeviceTree :D
+	</p>
+
+
 	<a href="index.html">Return to the main page</a>
 
 </body>
