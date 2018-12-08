@@ -168,17 +168,26 @@
 		Remember earlier about not using a ramdisk? We really don't need ramdisk. It doesn't serve much of a purpose. It's just there because of the routine.<br>
 		Go to <a href="http://armconverter.com/branchfinder/" target="_blank">this webpage</a> and change ARM64 to ARMv7 THUMB - New Engine.<br>
 		Below, there is a python cli we can use, as we need to do some calculations. We are going to load the kernelcache by replacing the loading of ramdisk.<br>
-		Click where "DCD aBootKernelcach " is (along the other string references. Under the addresses on the left, enter the offset where the <br>
-		instruction is: 0x13A0 in the command line.<br> Then, click on where "LDR R0, =aFailedToLoadRa" is. Do the same as before. My offset is 0x1340.
 	</p>
 
-	<p>This is what you should have so far.</p>
+	<p>
+		If you want to make it easier for yourself, you can name functions in IDA to whatever you want. To do this click a function as below and then press n.<br>
+		It will show a prompt asking to enter a name. You cannot duplicate function names. This will help you to easily see where and what to change. Look below.
+	</p>
+
+	<img src="../resources/pictures/ibec-name.png">
+
+	<p>
+		We need to calculate values in order to complete in skipping ramdisk loading. We do this by grabbing the offset of "upgrade_load_kernelcache" (0x1344)<br>
+		then the same for "upgrade_load_ramdisk," (0x1332) except we want the CBZ R0 instruction's offset. Enter them as seen below, in the cli.<br>
+		Subtract the offsets in the Python cli below and turn it into a hex value so we can figure out our THUMB instruction to enter.
+	</p>
 
 	<img src="../resources/pictures/ibec-offset.png">
 
 	<p>
-		Press enter and you should get 96. Now in the cli, enter hex(96) or whatever offset of whatever version you are using. You should get 0x60.<br>
-		In the webpage, add in the offset of where we want to load our instruction (0x1340) on the left. Enter the instruction I entered.
+		Press enter and you should get 18. Now in the cli, enter hex(18) or whatever offset of whatever version you are using. You should get 0x12.<br>
+		In the webpage, add in the offset of where we want to load our instruction (0x1332) on the left. Enter the instruction I entered.
 	</p>	
 
 	<p>It should look like this.</p>
@@ -186,8 +195,8 @@
 	<img src="../resources/pictures/ibec-webpage.png">
 
 	<p>
-		Remove 0x100 from 1848 -> 1748. This is what we need to replace the loading of the ramdisk and instead load the kernelcache.<br>
-		Go back to 0x1340, make sure you're on the line, enter hex, press F2 and replace "15 48" with "17 48." It should like like this.
+		This is what we need to replace the loading of the ramdisk and instead load the kernelcache. Enter hex view and replace "CBZ R0, upgrade_load_ramdisk"<br>
+		with "38 B1." This will completely remove the loading of the ramdisk and load the kernelcache instead. It should look like this.
 	</p>
 
 	<img src="../resources/pictures/ibec-ramdisk.png">
