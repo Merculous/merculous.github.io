@@ -1,92 +1,102 @@
-<title>iOS 8 and 9 Patching</title>
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<title>iOS 8 and 9 Patching</title>
+	
+</head>
 
 <link rel="stylesheet" type="text/css" href="../resources/css/thingy.css">
 
 <body>
 	
-<p>
-Once you start getting experience patching and you know what to look for, you will notice that iOS 8+<br>
-has different instructions, but similar. You will see that the address we need to change in iBSS<br>
-is used with a different instruction. Before, it was loaded with MOV, and now it is changed to LDR.<br>
-You will also see, once you scroll down a bit, that in the list of the string references, you will<br>
-find that the address we need to change is used as a reference and is not part of the instruction itself.
-</p>
+	<p>
+		Once you start getting experience patching and you know what to look for, you will notice that iOS 8+<br>
+		has different instructions, but similar. You will see that the address we need to change in iBSS<br>
+		is used with a different instruction. Before, it was loaded with MOV, and now it is changed to LDR.<br>
+		You will also see, once you scroll down a bit, that in the list of the string references, you will<br>
+		find that the address we need to change is used as a reference and is not part of the instruction itself.
+	</p>
 
-<p>In this page, we are using iPhone4,1 (iPhone 4S) on iOS 8.4.1 (what I have available at the time)</p>
+	<p>In this page, we are using iPhone4,1 (iPhone 4S) on iOS 8.4.1 (what I have available at the time)</p>
 
-<h2>iBSS</h2>
+	<h2>iBSS</h2>
 
-<p>As you can see, this is what we will be focusing on. Its pretty straightforward.</p>
+	<p>As you can see, this is what we will be focusing on. Its pretty straightforward.</p>
 
-<img src="../resources/pictures/ibss-ios8.png">
+	<img src="../resources/pictures/ibss-ios8.png">
 
-<p>Underneath, here is the actual value we need to change. This is where the references are inside this function.</p>
+	<p>Underneath, here is the actual value we need to change. This is where the references are inside this function.</p>
 
-<img src="../resources/pictures/ibss-ios8-reference.png">
+	<img src="../resources/pictures/ibss-ios8-reference.png">
 
-<p>Since we're patching for the 4S, we need to change 0x8FE0 to 0xBFD0. The process is the same as the others.</p>
+	<p>Since we're patching for the 4S, we need to change 0x8FE0 to 0xBFD0. The process is the same as the others.</p>
 
-<p>You should have something like this if you changed the reference value correctly.</p>
+	<p>You should have something like this if you changed the reference value correctly.</p>
 
-<img src="../resources/pictures/ibss-ios8-address.png">
+	<img src="../resources/pictures/ibss-ios8-address.png">
 
-<h2>iBEC</h2>
+	<h2>iBEC</h2>
 
-<p>iBEC patching is going to be quite different compared to iOS 7 and below.</p>
+	<p>iBEC patching is going to be quite different compared to iOS 7 and below.</p>
 
-<p>We need to add another argument to the boot-args. This is will be "amfi_get_out_of_my_way=1"</p>
+	<p>We need to add another argument to the boot-args. This is will be "amfi_get_out_of_my_way=1"</p>
 
-<p>
-Change fsboot to upgrade. After that, go to where "failed to mount upgrade partition is located."<br>
-Upgrade routine does not care about auto-boot at this point. Scroll up a little until you find this.
-</p>
+	<p>
+		Change fsboot to upgrade. After that, go to where "failed to mount upgrade partition is located."<br>
+		Upgrade routine does not care about auto-boot at this point. Scroll up a little until you find this.
+	</p>
 
-<img src="../resources/pictures/ibec-ios8.png">
+	<img src="../resources/pictures/ibec-ios8.png">
 
-<p>NOP everything from "MOV R7, SP" to the BL above "ITT EQ and CMP." It should look like this.</p>
+	<p>NOP everything from "MOV R7, SP" to the BL above "ITT EQ and CMP." It should look like this.</p>
 
-<img src="../resources/pictures/ibec-ios8-nop.png">
+	<img src="../resources/pictures/ibec-ios8-nop.png">
 
-<p>
-Now, I'm not as smart as Nyan but they describe the way this works better than I can understand.<br>	
-"These block devices have names in format nand0X, where X is a character describing partition number<br>
-starting from “a”. So block device for third partition would be nand0c. Obviously there’s no such string in iBEC."
-</p>
+	<p>
+		Now, I'm not as smart as Nyan but they describe the way this works better than I can understand.<br>	
+		"These block devices have names in format nand0X, where X is a character describing partition number<br>
+		starting from “a”. So block device for third partition would be nand0c. Obviously there’s no such string in iBEC."
+	</p>
 
-<p>
-Because of this, we need to make our own string. There is a place where there is free space. I put this at <br>
-the beginning of the file. In hex view, enter this "6E 61 6E 64 30 63." This is nand0c in hex. Look here.
-</p>
+	<p>
+		Because of this, we need to make our own string. There is a place where there is free space. I put this at <br>
+		the beginning of the file. In hex view, enter this "6E 61 6E 64 30 63." This is nand0c in hex. Look here.
+	</p>
 
-<img src="../resources/pictures/ibec-ios8-nand0c.png">
+	<img src="../resources/pictures/ibec-ios8-nand0c.png">
 
-<p>
-We need to be able to use our custom string to tell the iBEC that we want to use this. Replace the first<br>
-string reference and replace it with the address of our custom string. Mine is at 0x9FF001C0.<br>
-As you replace the string with the address of your custom string, open this <a href="http://armconverter.com/branchfinder/">webpage.</a>
-</p>
+	<p>
+		We need to be able to use our custom string to tell the iBEC that we want to use this. Replace the first<br>
+		string reference and replace it with the address of our custom string. Mine is at 0x9FF001C0.<br>
+		As you replace the string with the address of your custom string, open this <a href="http://armconverter.com/branchfinder/">webpage.</a>
+	</p>
 
-<p>
-Change ARM64 to ARMv7 THUMB - New Engine. Where we first placed a NOP, take note of the offset and enter it in the Python cli below.<br>
-Take note of the offset of where we replaced the first string reference with our custom string. Subtract the custom string's reference<br>
-with the other offset. It will go like this: Custom string reference offset - first NOP offset. This is what I get.
-</p>
+	<p>
+		Change ARM64 to ARMv7 THUMB - New Engine. Where we first placed a NOP, take note of the offset and enter it in the Python cli below.<br>
+		Take note of the offset of where we replaced the first string reference with our custom string. Subtract the custom string's reference<br>
+		with the other offset. It will go like this: Custom string reference offset - first NOP offset. This is what I get.
+	</p>
 
-<img src="../resources/pictures/ibec-ios8-offset.png">
+	<img src="../resources/pictures/ibec-ios8-offset.png">
 
-<p>Now enter what I input (with your offsets and hex value).</p>
+	<p>Now enter what I input (with your offsets and hex value).</p>
 
-<img src="../resources/pictures/ibec-ios8-ldr.png">
+	<img src="../resources/pictures/ibec-ios8-ldr.png">
 
-<p>
-We get "1148." Subtract 0x100 from 1148, which is 1048. Add this, in hex view, to the offset of which the first NOP is.<br>
-Afterwards, your function should look like this. You may need to select all and analyze to see "nand0c" be shown.
-</p>
+	<p>
+		We get "1148." Subtract 0x100 from 1148, which is 1048. Add this, in hex view, to the offset of which the first NOP is.<br>
+		Afterwards, your function should look like this. You may need to select all and analyze to see "nand0c" be shown.
+	</p>
 
-<img src="../resources/pictures/ibec-ios8-oof.png">
+	<img src="../resources/pictures/ibec-ios8-oof.png">
 
-<p>We're done! iOS 8, 9, and 10 must have these patches, else they will fail.</p>
+	<p>We're done! iOS 8, 9, and 10 must have these patches, else they will fail.</p>
 
-<a href="index.html">Return to the main page</a>
+	<a href="index.html">Return to the main page</a>
 
 </body>
+
+</html>
