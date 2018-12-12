@@ -1,13 +1,23 @@
 
 /*Thanks to Nyan Satan for this! I'm terrible with css so this will be used until I come up with something else.*/
 
+
 p.cli {
 
-	background-image: url("../pictures/Background.png");
+	background-color: #F0F0F0;
 	padding: 10px;
 	border-radius: 5px;
 	font-family: Courier;
-	font-color: white;
 	word-wrap: break-word;
 	width: 1000px;
+	color: black;
+}
+
+.bg {
+	background-image: url("https://i.imgur.com/SnS0aTI.jpg");
+	color: white;
+}
+
+a {
+	color: white;
 }
