@@ -3,10 +3,11 @@
 
 p.cli {
 
-	background-color: #F0F0F0;
+	background-image: url("../images/Background.png");
 	padding: 10px;
 	border-radius: 5px;
 	font-family: Courier;
+	font-color: white;
 	word-wrap: break-word;
 	width: 1000px;
 }
