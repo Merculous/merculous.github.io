@@ -21,3 +21,6 @@ a {
 a::hover {
 	color: grey;
 }
+* {
+	font-family: "Helvetica NeueUI", "Helvetica Neue", "Helvetica"; /* Courier sucks IMO */
+}
