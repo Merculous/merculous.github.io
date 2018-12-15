@@ -3,7 +3,7 @@ p.cli {
 	background-color: #F0F0F0;
 	padding: 10px;
 	border-radius: 5px;
-	font-family: "Helvetica NeueUI", "Helvetica Neue", "Helvetica"; /* Courier sucks IMO */
+	font-family: Courier; /* I guess it is a CLI box */
 	word-wrap: break-word;
 	width: 1000px;
 	color: black;
