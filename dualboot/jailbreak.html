@@ -5,7 +5,18 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../resources/css/thingy.css">
 	<title>Jailbreaking</title>
-
+	<script>
+		window.addEventListener("DOMReady", function() {
+			if('localStorage' in window && 'background' in localStorage) {
+				var bg = document.querySelectorAll('.bg');
+				for(var i = 0; i < bg.length; i++) {
+					bg.style.backgroundImage = 'url(' + localStorage.get('background') + ')';
+				};
+			} else {
+				localStorage.set('background', 'https://i.imgur.com/3jmkrwR.jpg');
+			};
+		});
+	</script>
 </head>
 
 <body>
