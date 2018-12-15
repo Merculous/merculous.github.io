@@ -1,23 +1,23 @@
-
 /*Thanks to Nyan Satan for this! I'm terrible with css so this will be used until I come up with something else.*/
-
-
 p.cli {
-
 	background-color: #F0F0F0;
 	padding: 10px;
 	border-radius: 5px;
-	font-family: Courier;
+	font-family: "Helvetica NeueUI", "Helvetica Neue", "Helvetica"; /* Courier sucks IMO */
 	word-wrap: break-word;
 	width: 1000px;
 	color: black;
 }
-
 .bg {
 	background-image: url("https://i.imgur.com/3jmkrwR.jpg");
+	background-size: 100vw 100vh;
+	background-repeat: no-repeat;
+	background-attachment: fixed; 
 	color: white;
 }
-
 a {
 	color: white;
+}
+a::hover {
+	color: grey;
 }
