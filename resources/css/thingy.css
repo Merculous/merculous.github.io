@@ -6,21 +6,8 @@ p.cli {
 	font-family: Courier; /* I guess it is a CLI box */
 	word-wrap: break-word;
 	width: 1000px;
-	color: black;
 }
-.bg {
-	background-image: url("https://i.imgur.com/3jmkrwR.jpg");
-	background-size: 100vw 100vh;
-	background-repeat: no-repeat;
-	background-attachment: fixed; 
-	color: white;
-}
-a {
-	color: white;
-}
-a::hover {
-	color: grey;
-}
+
 * {
 	font-family: "Helvetica NeueUI", "Helvetica Neue", "Helvetica"; /* Courier sucks IMO */
 }
