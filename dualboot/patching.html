@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 
-<html class="bg">
+<html>
+
+<link rel="stylesheet" type="text/css" href="../resources/css/thingy.css">
 
 <head>
 
 	<title>Patching</title>
-	<script src='script.js'></script>
 </head>
-
-<link rel="stylesheet" type="text/css" href="../resources/css/thingy.css">
 
 <body>
 
@@ -71,22 +70,13 @@
 	<p>
 		Open IDA Pro, select iBSS.prepatched, change processor type to ARM Little-Endian, click ok.<br>
 		Go to the taskbar, edit, select all, press c, and select analyze.<br>
-		We need to figure out what the segment value is so here's a easy trick I use to find this.<br>
-	</p>
-
-	<img src="../resources/pictures/ibss-segment.png">
-
-	<p>
-		Above the string "bootstrap" usually you can find a value that occurs the most or you've seen multiple times throughout patching various devices. <br> In this case, its 0x84000000.
-		You'll find these easily once you look at multiple devices iBoot's. It'll be confusing at first but you'll see what I'm talking about.
-	</p>
-
-	<p>
-		Go to the taskbar, edit, segments, rebase program, and enter your value.<br>
-		Our value from the picture provided will be: 0x84000000
-	</p>
-
-	<p>
+		We need to figure out what the segment value is of our iBoot image.<br> 
+		<br>
+		Once you have analyzed, go to the top of the assembly, and there will be a DCD 0x84000010.<br>
+		This is our rebase value. Go to the taskbar, edit, segments, rebase program, and enter your value.<br>
+		Make sure to remove the 0x10 from the value. Our value will then be: 0x84000000
+		<br>
+		<br>
 		Press Shift + F12, which will open the "Strings" window.<br>
 		Go to the taskbar, search, enter "ibss ready", double-click on the highlighted string.<br>
 		Double-click on "DATA XREF: sub_xxx"
@@ -100,15 +90,17 @@
 		"MOVT.W R4, #0x4FE0" is the address we need to change in order for kloader to load correctly.<br>
 		Change 0x4FE0 to 0x7FD0: Go to hex window, press F2, change "C4 F6 E0 74" to "C7 F6 D0 74."<br>
 		Press F2 again to exit "overwrite" mode.
+		<br>
+		<br>
+		You should have a change like this
 	</p>
-
-	<p>You should have a change like this</p>
 
 	<img src="../resources/pictures/ibss-7fd0.png">
 
-	<p>While in the hex window, remove these instructions (BL and BLT) with a NOP "00 BF". The BL will be two NOP's.</p>
-
 	<p>
+		While in the hex window, remove these instructions (BL and BLT) with a NOP "00 BF". The BL will be two NOP's.
+		<br>
+		<br>
 		Note: Not all devices use that address when using kloader. iPhone 3GS and iPhone 4S have different addresses we need to change.<br>
 		For S5L8920 devices we need to replace "MOVS R1, #0x3FF00000" with "MOVS R1, #0x6FD00000" (C3 -> C6, F0 -> D0).<br>
 		For S5L8940 devices replace with "MOVT.W R4, #0xBFD0 (CB F6 D0 74)"
@@ -168,9 +160,8 @@
 		Remember earlier about not using a ramdisk? We really don't need ramdisk. It doesn't serve much of a purpose. It's just there because of the routine.<br>
 		Go to <a href="http://armconverter.com/branchfinder/" target="_blank">this webpage</a> and change ARM64 to ARMv7 THUMB - New Engine.<br>
 		Below, there is a python cli we can use, as we need to do some calculations. We are going to load the kernelcache by replacing the loading of ramdisk.<br>
-	</p>
-
-	<p>
+		<br>
+		<br>
 		If you want to make it easier for yourself, you can name functions in IDA to whatever you want. To do this click a function as below and then press n.<br>
 		It will show a prompt asking to enter a name. You cannot duplicate function names. This will help you to easily see where and what to change. Look below.
 	</p>
@@ -188,9 +179,10 @@
 	<p>
 		Press enter and you should get 18. Now in the cli, enter hex(18) or whatever offset of whatever version you are using. You should get 0x12.<br>
 		In the webpage, add in the offset of where we want to load our instruction (0x1332) on the left. Enter the instruction I entered.
-	</p>	
-
-	<p>It should look like this.</p>
+		<br>
+		<br>
+		It should look like this.
+	</p>
 
 	<img src="../resources/pictures/ibec-webpage.png">
 
