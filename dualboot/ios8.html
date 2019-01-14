@@ -20,9 +20,10 @@
 		is used with a different instruction. Before, it was loaded with MOV, and now it is changed to LDR.<br>
 		You will also see, once you scroll down a bit, that in the list of the string references, you will<br>
 		find that the address we need to change is used as a reference and is not part of the instruction itself.
+		<br>
+		<br>
+		In this page, we are using iPhone4,1 (iPhone 4S) on iOS 8.4.1 (what I have available at the time).
 	</p>
-
-	<p>In this page, we are using iPhone4,1 (iPhone 4S) on iOS 8.4.1 (what I have available at the time)</p>
 
 	<h2>iBSS</h2>
 
@@ -34,17 +35,21 @@
 
 	<img src="../resources/pictures/ibss-ios8-reference.png">
 
-	<p>Since we're patching for the 4S, we need to change 0x8FE0 to 0xBFD0. The process is the same as the others.</p>
-
-	<p>You should have something like this if you changed the reference value correctly.</p>
+	<p>
+		Since we're patching for the 4S, we need to change 0x8FE0 to 0xBFD0. The process is the same as the others.
+		<br>
+		You should have something like this if you changed the reference value correctly.
+	</p>
 
 	<img src="../resources/pictures/ibss-ios8-address.png">
 
 	<h2>iBEC</h2>
 
-	<p>iBEC patching is going to be quite different compared to iOS 7 and below.</p>
-
-	<p>We need to add another argument to the boot-args. This is will be "amfi_get_out_of_my_way=1"</p>
+	<p>
+		iBEC patching is going to be quite different compared to iOS 7 and below.
+		<br>
+		We need to add another argument to the boot-args. This is will be "amfi_get_out_of_my_way=1"
+	</p>
 
 	<p>
 		Change fsboot to upgrade. After that, go to where "failed to mount upgrade partition is located."<br>

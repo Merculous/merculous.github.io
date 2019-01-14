@@ -22,16 +22,18 @@
 		at least from the beginning. If you have already, and successfully dualbooted, then this is another method that you can learn and get some experience in patching various iBoot's.
 	</p>
 
-	<p class="cli">./reimagine Firmware/all_flash/all_flash."device".production/LLB."device".RELEASE.img3 LLB.raw -iv -k -r</p>
-
-	<p class="cli">./iBoot32Patcher LLB.raw LLB.prepatched -r</p>
+	<p class="cli">
+		./reimagine Firmware/all_flash/all_flash."device".production/LLB."device".RELEASE.img3 LLB.raw -iv -k -r
+		<br>
+		./iBoot32Patcher LLB.raw LLB.prepatched -r
+	</p>
 
 	<p>
 		Open LLB.prepatched in IDA, select ARM as the processor, and do everything else that we do we each iBoot.<br>	
 		LLB and iBSS share the same rebase. Analyze the code and rebase the program to 0x84000000.<br>
+		<br>
+		Scroll down from the top of the file (code) until you find this. Should be around 0x800-0xA00
 	</p>
-
-	<p>Scroll down from the top of the file (code) until you find this. Should be around 0x800-0xA00</p>
 
 	<img src="../resources/pictures/llb-tag.png">
 
