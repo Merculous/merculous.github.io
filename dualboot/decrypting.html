@@ -25,9 +25,11 @@
 			<li>Kernelcache</li>
 		</ul>
 
-		<p>Notice we aren't extracting a ramdisk, even though the upgrade routine requires this file. I will explain this later.</p>
-
-		<p>I usually being with decrypting the rootfs first so we can being decrypting with dmg</p>
+		<p>
+			Notice we aren't extracting a ramdisk, even though the upgrade routine requires this file. I will explain this later.
+			<br>
+			I usually being with decrypting the rootfs first so we can being decrypting with dmg.
+		</p>
 
 		<p class="cli">./dmg extract rootfs.dmg output.dmg -k</p>
 
@@ -37,15 +39,19 @@
 
 		<p>Now is when we start to use reimagine. Start decrypting applelogo and kernelcache.</p>
 
-		<p class="cli">./reimagine Firmware/all_flash/all_flash."device".production/applelogo... applelogo -iv -k</p>
-
-		<p class="cli">./reimagine kernelcache.release."device" kernelcache -iv -k</p>
+		<p class="cli">
+			./reimagine Firmware/all_flash/all_flash."device".production/applelogo... applelogo -iv -k
+			<br>
+			./reimagine kernelcache.release."device" kernelcache -iv -k
+		</p>
 
 		<p>Now for the others, it's the same process but we need to strip the files of the their tags with -r parameter.</p>
 
-		<p class="cli">./reimagine Firmware/all_flash/all_flash."device".production/DeviceTree."device".img3 dtre.raw -iv -k -r</p>
-
-		<p class="cli">./reimagine Firmware/dfu/iBEC/iBSS."device".RELEASE.dfu iBEC/iBSS.raw -iv -k -r</p>
+		<p class="cli">
+			./reimagine Firmware/all_flash/all_flash."device".production/DeviceTree."device".img3 dtre.raw -iv -k -r
+			<br>
+			./reimagine Firmware/dfu/iBEC/iBSS."device".RELEASE.dfu iBEC/iBSS.raw -iv -k -r
+		</p>
 
 		<a href="patching.html">Now, let's start patching!</a>
 		<br>
