@@ -1,0 +1,13 @@
+/*Thanks to Nyan Satan for this! I'm terrible with css so this will be used until I come up with something else.*/
+p.cli {
+	background-color: #F0F0F0;
+	padding: 10px;
+	border-radius: 5px;
+	font-family: Courier; /* I guess it is a CLI box */
+	word-wrap: break-word;
+	width: 1000px;
+}
+
+* {
+	font-family: "Helvetica NeueUI", "Helvetica Neue", "Helvetica"; /* Courier sucks IMO */
+}

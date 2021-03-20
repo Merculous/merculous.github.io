@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html>
+
+<link rel="stylesheet" type="text/css" href="../resources/css/thingy.css">
+
+<head>
+
+	<title>Patching</title>
+</head>
+
+<body>
+
+	<p>
+		I will be basing this guide on iPhone3,1 (iPhone 4 GSM) on iOS 6.0 (10A403). Patches will vary on different versions, but may be the same or very similar.<br>
+		Also, please contact me if you have questions and or need help on something. But, before you ask me about something, please try to figure you mistakes first.<br>
+		If something in the guide looks different, just enter what you think it'll be. Most of the time you will be correct. Don't expect you to not fail, you will.<br>
+		There's no guarantee you will get this first try, as I didn't. If you do, you did better than me! If you succeed, try patching another iOS and learn some more! 
+	</p>
+
+	<h2>Let's begin with the most easiest of them all, DeviceTree.</h2>
+
+	<p>
+		Open dtre.raw with your hex editor of choice.<br>	
+		Copy this string. Yes, and the blank spacing highlighted.
+	</p>
+
+	<img src="../resources/pictures/dtre.png">
+
+	<p>
+		Make sure you are in "insert" mode. You can find this by going to the top of the taskbar, edit, mode.<br>
+		Press Ctrl + F, and insert "use-lwvm" (without the quotes). Afterwards, you should be here.
+	</p>
+
+	<img src="../resources/pictures/dtre-lwvm.png">
+
+	<p>
+		Paste the string we copied before "use-lwvm". Now go back to modes and now change it to overwrite.<br>
+		Now, overwrite "firmware-min-capacity" with "no-effaceable-storage."<br>
+	</p>
+
+	<img src="../resources/pictures/dtre-value.png">
+
+	<p>
+		After you overwrite the string, scroll up until you find the string containing AAPL<br>
+		or something about kernel.hibernation. Look for a value such as 8, 9, A, B, and so on.<br> 
+		Change A to B, then Ctrl + S, Ctrl + w.<br>
+		Now, we need to repack dtre.raw into an img3 container.
+	</p>
+
+	<p class="cli">./image3maker -f dtre.raw -t dtre -o devicetree</p>
+
+	<p>Now run devicetree with imagine to verify our patches are correct.</p>
+
+	<p class="cli">./imagine -d devicetree</p>
+
+	<p>
+		If you get a segfault 11, you did something wrong.<br>
+		Look for "defaults". If you see no-effaceable-storage, you patched correctly.<br>
+	</p>
+
+	<img src="../resources/pictures/dtre-imagine.png">
+
+	<h2>Let's starting patching iBSS!</h2>
+
+	<p>Now, we need to patch out essential things in iBoot.</p>
+
+	<p class="cli">./iBoot32Patcher iBSS.raw iBSS.prepatched -r</p>
+
+	<p>
+		Open IDA Pro, select iBSS.prepatched, change processor type to ARM Little-Endian, click ok.<br>
+		Go to the taskbar, edit, select all, press c, and select analyze.<br>
+		We need to figure out what the segment value is of our iBoot image.<br> 
+		<br>
+		Once you have analyzed, go to the top of the assembly, and there will be a DCD 0x84000010.<br>
+		This is our rebase value. Go to the taskbar, edit, segments, rebase program, and enter your value.<br>
+		Make sure to remove the 0x10 from the value. Our value will then be: 0x84000000
+		<br>
+		<br>
+		Press Shift + F12, which will open the "Strings" window.<br>
+		Go to the taskbar, search, enter "ibss ready", double-click on the highlighted string.<br>
+		Double-click on "DATA XREF: sub_xxx"
+	</p>
+
+	<p>Should have something like this</p>
+
+	<img src="../resources/pictures/ibss-address.png">
+
+	<p>
+		"MOVT.W R4, #0x4FE0" is the address we need to change in order for kloader to load correctly.<br>
+		Change 0x4FE0 to 0x7FD0: Go to hex window, press F2, change "C4 F6 E0 74" to "C7 F6 D0 74."<br>
+		Press F2 again to exit "overwrite" mode.
+		<br>
+		<br>
+		You should have a change like this
+	</p>
+
+	<img src="../resources/pictures/ibss-7fd0.png">
+
+	<p>
+		While in the hex window, remove these instructions (BL and BLT) with a NOP "00 BF". The BL will be two NOP's.
+		<br>
+		<br>
+		Note: Not all devices use that address when using kloader. iPhone 3GS and iPhone 4S have different addresses we need to change.<br>
+		For S5L8920 devices we need to replace "MOVS R1, #0x3FF00000" with "MOVS R1, #0x6FD00000" (C3 -> C6, F0 -> D0).<br>
+		For S5L8940 devices replace with "MOVT.W R4, #0xBFD0 (CB F6 D0 74)"
+	</p>
+
+	<img src="../resources/pictures/ibss-nop.png">
+
+	<p>
+		We're now done patching iBSS! All we have to do is produce a dif file and apply the patches.<br>
+		IDA does not apply patches directly by default, so we have to use ida_patcher to do so.<br>	
+		To produce a dif file, go to the taskbar, file, produce a dif file, create a dif file, save.
+	</p>
+
+	<p class="cli">./ida_patcher -i iBSS.prepatched -p iBSS.dif</p>
+
+	<h2>Time to patch iBEC!</h2>
+
+	<p class="cli">./iBoot32Patcher iBEC.raw iBEC.prepatched -r -d -b "rd=disk0s1s3 -v amfi=0xff cs_enforcement_disable=1</p>
+
+	<p>Same process of opening iBSS and find the segment, but remember, the segment value will be different.</p>
+
+	<img src="../resources/pictures/ibec-segment.png">
+
+	<p>
+		Our value above, for the segment rebase is 0x5FF00000. Enter this the same way we rebased the program with iBSS.<br>
+		Open up the strings windows, search for "fsboot." Double-click the highlighted string, double-click the string, <br>
+		double-click the xref.
+	</p>
+
+	<img src="../resources/pictures/ibec-fsboot.png">
+
+	<p>
+		Above is where you will find fsboot. If IDA doesn't show the string references and just leaves them as addresses, click the address<br>
+		and press o. We need to change fsboot to upgrade. To do this, go back to strings windows and scroll up a bit and find "upgrade."<br>
+		In this case, the address of upgrade is: 5FF35215. Make sure you're on the link of fsboot and enter hex view.  We are going to <br>
+		change the value to upgrade. In order to do this we have to go from right to left, because of Little-Endian. Address of fsboot<br>
+		is 5FF354DA, press F2, enter "15 52" and then press F2 again. Go back to IDA-View and fsboot should now be upgrade. Here is picture.
+	</p>
+
+	<img src="../resources/pictures/ibec-upgrade.png">
+
+	<p>
+		Now, boot-command=upgrade is now completed. We now need to tell iBEC to boot, since apple sets auto-boot=false. Otherwise, we will boot <br>
+		into recovery after loading upgrade boot-command. In strings window, search for "failed to mount upgrade partition." It will look like this.
+	</p>
+
+	<img src="../resources/pictures/ibec-mount.png">
+
+	<p>
+		We need to change address of false to true. Go into strings windows and true should usually be under fsboot. Address of true is 5FF354E3. <br>
+		Enter hex view, press F2 and enter "E3 54." It should look like this after.
+	</p>
+
+	<img src="../resources/pictures/ibec-true.png">
+
+	<p>
+		Remember earlier about not using a ramdisk? We really don't need ramdisk. It doesn't serve much of a purpose. It's just there because of the routine.<br>
+		Go to <a href="http://armconverter.com/branchfinder/" target="_blank">this webpage</a> and change ARM64 to ARMv7 THUMB - New Engine.<br>
+		Below, there is a python cli we can use, as we need to do some calculations. We are going to load the kernelcache by replacing the loading of ramdisk.<br>
+		<br>
+		<br>
+		If you want to make it easier for yourself, you can name functions in IDA to whatever you want. To do this click a function as below and then press n.<br>
+		It will show a prompt asking to enter a name. You cannot duplicate function names. This will help you to easily see where and what to change. Look below.
+	</p>
+
+	<img src="../resources/pictures/ibec-name.png">
+
+	<p>
+		We need to calculate values in order to complete in skipping ramdisk loading. We do this by grabbing the offset of "upgrade_load_kernelcache" (0x1344)<br>
+		then the same for "upgrade_load_ramdisk," (0x1332) except we want the CBZ R0 instruction's offset. Enter them as seen below, in the cli.<br>
+		Subtract the offsets in the Python cli below and turn it into a hex value so we can figure out our THUMB instruction to enter.
+	</p>
+
+	<img src="../resources/pictures/ibec-offset.png">
+
+	<p>
+		Press enter and you should get 18. Now in the cli, enter hex(18) or whatever offset of whatever version you are using. You should get 0x12.<br>
+		In the webpage, add in the offset of where we want to load our instruction (0x1332) on the left. Enter the instruction I entered.
+		<br>
+		<br>
+		It should look like this.
+	</p>
+
+	<img src="../resources/pictures/ibec-webpage.png">
+
+	<p>
+		This is what we need to replace the loading of the ramdisk and instead load the kernelcache. Enter hex view and replace "CBZ R0, upgrade_load_ramdisk"<br>
+		with "38 B1." This will completely remove the loading of the ramdisk and load the kernelcache instead. It should look like this.
+	</p>
+
+	<img src="../resources/pictures/ibec-ramdisk.png">
+
+	<p>Like what we did with the iBSS, we need to produce a dif file and then apply the patches from the file.</p>
+
+	<p class="cli">./ida_patcher -f iBEC.prepatched -p iBEC.dif</p>
+
+	<p>We need to repack our patched iBEC back into a img3 format</p>
+
+	<p class="cli">./image3maker -f iBEC.prepatched -t ibec -o iBEC</p>
+
+	<p>iBEC patching is done!</p>
+
+	<a href="partitioning.html">It's now time to partition!</a>
+	<br>
+	<br>
+	<a href="index.html">Return to the main page</a>
+
+</body>
+
+</html>

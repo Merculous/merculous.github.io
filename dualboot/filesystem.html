@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html>
+
+<link rel="stylesheet" type="text/css" href="../resources/css/thingy.css">
+
+<head>
+
+	<title>Creating the filesystem</title>
+</head>
+
+<body>
+	
+	<p>
+		After you're done partitioning, now its time to remove files and also include our needed files.
+		<br>
+		<br>
+		Enable a ssh session after reboot, and then we're going to enter these commands.<br>
+	</p>
+
+	<h3>This depends on your main iOS. If pre-iOS 9 follow this.</h3>
+
+	<p>Make sure you replace "bsize" with your devices blocksize</p>
+
+	<p class="cli">
+		mount_hfs /dev/disk0s1s3 /mnt1
+		<br>
+		<br>
+		/sbin/newfs_hfs -s -v Data -J -P -b bsize -n a=bsize,c=bsize,e=bsize /dev/disk0s1s4
+		<br>
+		<br>
+		mount_hfs /dev/disk0s1s4 /mnt2
+		<br>
+		<br>
+		mv -v /mnt1/private/var/* /mnt2
+		<br>
+		<br>
+		rm -rf /mnt2/log/asl/SweepStore
+		<br>
+		<br>
+		rm -rf /mnt2/mobile/Library/PreinstalledAssets/*
+		<br>
+		<br>
+		rm -rf /mnt2/mobile/Library/Preferences/.GlobalPreferences.plist
+		<br>
+		<br>
+		rm -rf /mnt2/mobile/.forward
+		<br>
+		<br>
+		umount /mnt2
+	</p>
+
+	<p>
+		That's pretty much all of the removing of files, for now...<br>
+		Now, we're going to remount the secondary filesystem as r/w
+	</p>
+
+	<p class="cli">nano /mnt1/private/etc/fstab</p>
+
+	<p>
+		Change the values to "disk0s1s3" and "disk0s1s4."<br>
+		Then, remove nosuid and nodev.
+		<br>
+		<br>
+		<b>Note:</b> This will depend on your main iOS<br>
+		<br>
+		If your main iOS is 7.1.2 or lower, follow this guide, otherwise scroll<br>
+		down a bit to find another way to make sure fixkeybag gets executed.<br>
+		Make sure you still use the commands above for post-iOS 9, except the<br>
+		"new_hfs" part since we remove "-P" parameter.
+		<br>
+		<br>
+	</p>
+
+
+	<p class="cli">
+		cp -av /usr/share/dualbootstuff/fixkeybag_legacy /mnt1
+		<br>
+		<br>
+		mv -v /mnt1/fixkeybag_legacy /mnt1/fixkeybag
+
+	</p>
+
+	<p>
+		Now, to finish it off, this will also depend on what device you have.<br>
+		If your device is an iPhone 4S or anything around that timeline, we need<br>
+		to pack the baseband into the second os.
+		<br>
+		<br>
+		<b>Note:</b> each device has a different path for this so just replace the path with a path like: Trek, Mav, etc.
+	</p>
+
+	<p class="cli">
+		cd /usr/local/standalone/firmware/Baseband/Mav5/
+		<br>
+		<br>
+		mkdir -p /mnt1/usr/local/standalone/firmware/Baseband/Mav5
+		<br>
+		<br>
+		zip -r0 /mnt1/usr/local/standalone/firmware/Baseband/Mav5/Mav5-personalized.zip *
+	</p>
+
+	<h3>Post-iOS 9 Commands</h3>
+
+	<p class="cli">
+		/sbin/newfs_hfs -s -v Data -J -b bsize -n a=bsize,c=bsize,e=bsize /dev/disk0s1s4
+		<br>
+		<br>
+		NoMoreSIGABRT disk0s1s4
+	</p>
+
+	<h3>Fixkeybag post-iOS 7.1.2</h3>
+
+	<p>
+		Since for pre-iOS 8, we use launchd to "untether" or just basically make sure that fixkeybag is being executed<br>
+		during the boot. If you're running any version above iOS 7.1.2, Apple has mitigated this, so we need to make it<br>
+		execute from another way. Enter the commands below to fix this problem.
+	</p>
+
+	<p class="cli">
+		cp -av /usr/share/dualbootstuff/fixkeybag /mnt1
+		<br>
+		<br>
+		mv -v /mnt1/usr/libexec/keybagd /mnt1/usr/libexec/keybagd_bak
+		<br>
+		<br>
+		mv -v /mnt1/fixkeybag /mnt1/usr/libexec/keybagd
+	</p>
+
+	<h3>Fixkeybag iOS 10.x</h3>
+
+	<p>iOS 10.x has extra protections, these commands will fix that.</p>
+
+	<p class="cli">
+		mv -v /mnt1/usr/libexec/keybagd /mnt1/usr/libexec/com.apple.keybagd
+		<br>
+		<br>
+		ldid -S /mnt1/usr/libexec/com.apple.keybagd
+		<br>
+		<br>
+		mv -v /mnt1/usr/libexec/com.apple.keybagd /mnt1/usr/libexec/keybagd
+	</p>
+
+	<a href="finish.html">Time to finish up things!</a>	
+	<br>
+	<br>
+	<a href="index.html">Return to the main page</a>
+
+</body>
+
+</html>
